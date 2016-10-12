@@ -1,0 +1,60 @@
+﻿<section>
+    <div class="page-header">
+        <div class="actions">
+            <!--<button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-info-outline"></span></button>
+            <button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-search"></span></button>-->
+        </div>
+        <h1>
+            <i class="md md-people"></i>
+            Mis Materias
+        </h1>
+        <p class="lead">
+
+            Aquí podra gestionar las materias en la que participa como titular o adjunto
+
+        </p>
+    </div>
+</section>
+<div class="container-fluid">
+
+
+    <div ng-hide="misMaterias.length>0" ng-cloak>
+
+        <div class="bs-component">
+            <div class="alert alert-dismissible alert-info">
+
+                <h4>Atención</h4>
+                <p>No tiene materias</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4" ng-repeat="materia in misMaterias">
+        <div class="card bordered">
+            <div class="card-header">
+                <span class="card-title">{{materia.Nombre.toUpperCase()}}</span>
+
+                <div class="pull-right">
+                    <!--#/academico/curso-->
+                    <a  menu-link href="#/materias/{{materia.Id}}" name="{{materia.Nombre}}" class="btn btn-link btn-icon"><i class="md md-open-in-browser black-text"></i></a>
+
+                </div>
+            </div>
+            <div class="card-content">
+                <p><span>Código</span> {{materia.Codigo}} </p>
+                <p><span>Año</span> {{materia.Anio}} </p>
+                <p ng-show="materia.Titular.Id==userId"><span>Rol</span> Titular </p>
+                <p ng-show="materia.Titular.Id!=userId"><span>Rol</span> Adjunto </p>
+            </div>
+            <div class="card-action clearfix">
+                <!--<a href="" class="btn btn-link btn-icon"><i class="md md-favorite red-text"></i></a>-->
+
+                <div class="pull-right">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

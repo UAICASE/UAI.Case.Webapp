@@ -1,0 +1,93 @@
+﻿<div class="aside bs-docs-aside" tabindex="-1" role="dialog">
+    <div class="close">
+
+        <div class="btn btn-round btn-info"  ng-click="$hide()"><i class="md md-close"></i></div>
+
+    </div>
+    
+    
+
+
+
+
+    <div class="aside-dialog">
+
+        <div class="aside-body bs-sidebar">
+            <form class="form-floating" name="myForm" ng-submit="saveItem(item)">
+                <fieldset>
+                    <legend> {{item.Alumnos.length}} Alumnos del curso {{item.Materia.Nombre}} ({{item.Dia}}, {{item.Turno}}, {{item.Sede}})</legend>
+                    <span>Docente: {{item.Docente.Nombre}} {{item.Docente.Apellido}}</span>
+                   
+                    <div class="row">
+
+                        <div class="form-group">
+                            <div class="col-md-8 form-group">
+                                <label class="control-label" ng-hide="!item.editing">Alumno</label>
+                                <input type="text" class="form-control" ng-model="item.selectedAlumno" data-min-length="1" data-auto-select="true" ng-hide="!item.editing" bs-options="alumno as alumno.Nombre for alumno in alumnos" bs-typeahead ng-disabled="!item.editing" required >
+
+                            </div>
+                       
+                            <div class="col-md-4 form-group">
+                                <button ng-icon="" md-add-circle" type="button" class="btn btn-md btn-primary inline" ng-disabled="!myForm.$valid || isLoading" ng-hide="!item.editing" ng-click="addAlumnoToCurso(item,'Aceptada')">Agregar</button>
+                            </div>  
+                            </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="form-group filled">
+                            <div class="col-md-12">
+                                <!--<lista-alumnos alumnos="alumnosCurso" />-->
+                                <div class="card bordered">
+                                    <div class="card-header">
+                                        <span class="card-title">Alumnos</span>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-full table-full-small">
+                                            <thead>
+                                                <tr>
+                                                    <th>Legajo</th>
+                                                    <th>Alumno</th>
+                                                    <th class="text-right">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            
+                                            <tbody>
+                                                <tr ng-repeat="i in alumnosCurso">
+                                                    <td>{{i.Alumno.Legajo}}</td>
+                                                    <td>{{i.Alumno.Nombre}} {{i.Alumno.Apellido}}</td>
+                                                  
+                                                    <td class="text-right">
+
+                                                        <estado-usuario usuario="{{i.Alumno.Id}}" />
+                                                   
+                                                        <button type="button" class="btn btn-link btn-round" data-toggle="tooltip" data-placement="top" data-original-title="Enviar Correo" ng-click="toggleModal()"><i class="md md-mail"></i></button>
+                                                        <button type="button" class="btn btn-link btn-round" data-toggle="tooltip" data-placement="top" data-original-title="Eliminar"><i class="md md-delete"></i></button>
+                                                    </td>
+                                                </tr>
+                                               
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                
+                                
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+
+</fieldset>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+    
+
+
+    

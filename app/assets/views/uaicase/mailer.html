@@ -1,0 +1,232 @@
+﻿
+<section>
+    <div class="page-header">
+        <div class="actions">
+            <!--<button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-info-outline"></span></button>
+            <button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-search"></span></button>-->
+        </div>
+        <h1>
+            <i class="md md-email"></i>
+            Centro de Mensajería
+        </h1>
+        <p class="lead">
+            Aquí encontrara todos sus mensajes
+
+        </p>
+    </div>
+</section>
+<div class="ng-scope"  >
+
+
+
+    <div role="tabpanel">
+        <ul class="nav nav-tabs" role="tablist" ng-init="actionTab=1">
+            <li role="presentation" class="active"><a ng-click="actionTab=1" aria-controls="home" role="tab" data-toggle="tab">Bandeja de Entrada</a></li>
+            <li role="presentation" class=""><a ng-click="actionTab=2" aria-controls="home" role="tab" data-toggle="tab">Elementos Enviados</a></li>
+        </ul>
+        <div class="tab-content m-t-10">
+            <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==1}" >
+
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1" ng-hide="isReply">
+
+                        <div class="table-responsive well no-padding white no-margin">
+
+                            <table class="table table-full m-b-60" id="table-area-1" fsm-big-data="data of data take 30">
+                                <thead>
+                                    <tr  scroll-body="'#table-area-1'" scroll-stop="64">
+                                        <th><input type="checkbox" class="relative" ng-model="selectAll" ng-click="checkAll()" /></th>
+                                        <!--<th>Icon</th>-->
+                                        <th></th>
+                                        <th>De</th>
+                                        <!--<th>Para</th>-->
+                                        <th>Fecha</th>
+                                        <th>Asunto</th>
+                                        <th class="text-right">Acciones</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <tr ng-repeat="item in (getInboxPaged | orderBy:'-FechaCreacion')" ng-class="{bold: (item.ReadDate==null)}" data-animation="am-fade-and-slide-top" data-template="assets/uaicase/mail/read-mail-modal.html" ng-click="readMail(item)" bs-modal="modal">
+                                        <td><input type="checkbox" class="relative" ng-model="i.selected" ng-click="$event.stopPropagation()" /></td>
+                                        <!--<td ng-bind-html="item.icon" class="f20"></td>-->
+                                        <th><i class="md md-email" ng-hide="item.ReadDate!=null"></i></th>
+                                        <td>{{ item.Usuario.Nombre }} {{ item.Usuario.Apellido }}</td>
+
+
+                                        <!--<td>{{ item.MailToUsuario.Nombre}}</td>-->
+                                        <td><div am-time-ago="item.FechaCreacion" data-placement="top" data-title="Enviado el {{item.FechaCreacion | date:'dd-MM-yyyy HH:mm:ss'}}" bs-tooltip></div></td>
+                                        <td>
+                                            <!--<a data-animation="am-fade-and-slide-top" data-template="assets/uaicase/mail/read-mail-modal.html" ng-click="readMail1(item)" bs-modal>-->
+                                            {{ item.Subject }}
+
+                                            <!--</a>-->
+
+
+
+                                        </td>
+
+                                        <td class="text-right" ng-click="$event.stopPropagation()">
+                                            <button type="button" class="btn btn-link btn-round" ng-hide="item.ReadDate==null" data-placement="top" data-title="Leido el {{item.ReadDate| date:'dd-MM-yyyy HH:mm:ss'}}" bs-tooltip><i class="md md-check"></i></button>
+                                            <button type="button" class="btn btn-link btn-round" data-title="Ver" ng-click="replyMail(item)" ng-hide="item.Id==mailItem.Id" ng-controller="MailController"><i class="md md-reply"></i></button>
+
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="footer-buttons">
+
+                        </div>
+                    </div>
+                    <div class="col-md-10 col-md-offset-1" ng-hide="!isReply">
+
+                        <div class="well white">
+
+
+
+                            <div class="close">
+
+                                <div class="btn btn-round btn-info" ng-click="hideReplyForm()"><i class="md md-close"></i></div>
+
+                            </div>
+                            <form class="form-floating ng-valid ng-dirty ng-valid-parse" name="myMailForm" >
+                                <fieldset>
+                                    <legend>Responder</legend>
+
+
+
+                                    <div class="form-group filled">
+                                        <label class="control-label">Para {{mailItem.Destino}}</label>
+                                        <p ng-repeat="a in mailItem.To">
+
+                                            {{a.Nombre}} {{a.Apellido}}
+                                        </p>
+
+
+
+
+
+                                    </div>
+                                    <div class="form-group filled">
+                                        <label class="control-label">Curso</label>
+                                        {{mailItem.Curso.Materia.Nombre}} ({{mailItem.Curso.Dia}}, {{mailItem.Curso.Turno}}, {{mailItem.Curso.Sede}})
+
+                                    </div>
+
+                                    <div class="form-group filled">
+                                        <label class="control-label">Asunto</label>
+                                        <input type="text" class="form-control vertical" rows="3" ng-model="mailItem.Subject" />
+                                    </div>
+
+
+
+                                    <div class="row m-b-40" id="wysiwyg">
+
+
+
+
+                                        <fieldset>
+                                            <div class="form-group">
+                                                <text-angular-toolbar name="toolbar1" ta-toolbar="[['h1', 'h2', 'h3', 'p', 'quote'],['bold', 'italics', 'ul', 'ol', 'redo', 'undo', 'insertImage', 'insertLink', 'insertVideo']]" class="ng-isolate-scope ta-toolbar btn-toolbar focussed"><div class="btn-group"><button type="button" class="btn btn-default ng-scope" name="h1" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Heading 1">H1</button><button type="button" class="btn btn-default ng-scope" name="h2" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Heading 2">H2</button><button type="button" class="btn btn-default ng-scope" name="h3" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Heading 3">H3</button><button type="button" class="btn btn-default ng-scope active" name="p" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Paragraph">P</button><button type="button" class="btn btn-default ng-scope" name="quote" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Quote/unquote selection or paragraph"><i class="fa fa-quote-right"></i></button></div><div class="btn-group"><button type="button" class="btn btn-default ng-scope" name="bold" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Bold"><i class="fa fa-bold"></i></button><button type="button" class="btn btn-default ng-scope" name="italics" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Italic"><i class="fa fa-italic"></i></button><button type="button" class="btn btn-default ng-scope" name="ul" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Unordered List"><i class="fa fa-list-ul"></i></button><button type="button" class="btn btn-default ng-scope" name="ol" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Ordered List"><i class="fa fa-list-ol"></i></button><button type="button" class="btn btn-default ng-scope" name="redo" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Redo"><i class="fa fa-repeat"></i></button><button type="button" class="btn btn-default ng-scope" name="undo" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Undo"><i class="fa fa-undo"></i></button><button type="button" class="btn btn-default ng-scope" name="insertImage" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Insert image"><i class="fa fa-picture-o"></i></button><button type="button" class="btn btn-default ng-scope" name="insertLink" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Insert / edit link"><i class="fa fa-link"></i></button><button type="button" class="btn btn-default ng-scope" name="insertVideo" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Insert video"><i class="fa fa-youtube-play"></i></button></div></text-angular-toolbar>
+                                                <text-angular name="htmlcontent" ng-model="mailItem.Body" ta-target-toolbars="toolbar1,toolbar2" class="ng-isolate-scope ta-root ng-valid focussed ng-dirty ng-valid-parse"><div class="ta-scroll-window ng-scope ta-text ta-editor form-control" ng-hide="showHtml"><div class="popover fade bottom" style="max-width: none; width: 305px;"><div class="arrow"></div><div class="popover-content"></div></div><div class="ta-resizer-handle-overlay"><div class="ta-resizer-handle-background"></div><div class="ta-resizer-handle-corner ta-resizer-handle-corner-tl"></div><div class="ta-resizer-handle-corner ta-resizer-handle-corner-tr"></div><div class="ta-resizer-handle-corner ta-resizer-handle-corner-bl"></div><div class="ta-resizer-handle-corner ta-resizer-handle-corner-br"></div><div class="ta-resizer-handle-info"></div></div><div id="taTextElement1324900703039020" contenteditable="true" ta-bind="ta-bind" ng-model="html" class="ta-bind ng-valid ng-touched ng-dirty ng-valid-parse"><p>sdfsdf</p></div></div><textarea id="taHtmlElement1324900703039020" ng-show="showHtml" ta-bind="ta-bind" ng-model="html" class="ng-scope ta-bind ta-html ta-editor form-control ng-valid ng-hide"></textarea><input type="hidden" tabindex="-1" style="display: none;" name="htmlcontent" value="<p>sdfsdf</p>"></text-angular>
+                                                <text-angular-toolbar name="toolbar2" ta-toolbar="[['html', 'charcount', 'wordcount']]" class="ng-isolate-scope ta-toolbar btn-toolbar focussed"><div class="btn-group"><button type="button" class="btn btn-default ng-scope" name="html" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" title="Toggle html / Rich Text"><i class="fa fa-code"></i></button><div id="toolbarCC" style="display:block; min-width:120px;" class="btn btn-default ng-scope" name="charcount" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" disabled="disabled">Characters: <span ng-bind="charcount" class="ng-binding">6</span></div><div id="toolbarWC" style="display:block; min-width:100px;" class="btn btn-default ng-scope" name="wordcount" unselectable="on" ng-disabled="isDisabled()" tabindex="-1" ng-click="executeAction()" ng-class="displayActiveToolClass(active)" disabled="disabled">Words: <span ng-bind="wordcount" class="ng-binding">1</span></div></div></text-angular-toolbar>
+                                            </div>
+
+
+                                        </fieldset>
+
+
+
+
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-lg btn-primary" ng-click="sendMail()">Responder</button>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <pagination-controls list="inbox()" paged="getInboxPaged" max="10" rango="1"/>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+            <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==2}">
+             <div class="row">
+                    <div class="col-md-10 col-md-offset-1" >
+
+                        <div class="table-responsive well no-padding white no-margin">
+
+                            <table class="table table-full m-b-60" id="table-area-1" >
+                                <thead>
+                                    <tr  scroll-body="'#table-area-1'" scroll-stop="64">
+                                        <th><input type="checkbox" class="relative" ng-model="selectAll" ng-click="checkAll()" /></th>
+                                        <!--<th>Icon</th>-->
+                                        <th>Para</th>
+                                        <!--<th>Para</th>-->
+                                        <th>Fecha</th>
+                                        <th>Asunto</th>
+                                        <th class="text-right">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+
+                                     <tr ng-repeat="item in getOutboxPaged "  data-animation="am-fade-and-slide-top" data-template="assets/uaicase/mail/read-mail-modal.html" ng-click="readMail(item)" bs-modal="modal">
+                                        <td><input type="checkbox" class="relative" ng-model="i.selected" ng-click="$event.stopPropagation()" /></td>
+                                        <!--<td ng-bind-html="item.icon" class="f20"></td>-->
+                                        <td>{{ item.MailToUsuario.Nombre}} {{ item.MailToUsuario.Apellido}} </td>
+
+
+                                        <!--<td>{{ item.MailTo}}</td>-->
+                                        <td><div am-time-ago="item.FechaCreacion" data-placement="top" data-title="Enviado el {{item.FechaCreacion | date : 'dd-MM-yyyy HH:mm:ss'}}" bs-tooltip></div></td>
+                                        <td>
+                                            <!--<a data-animation="am-fade-and-slide-top" data-template="assets/uaicase/mail/read-mail-modal.html" ng-click="readMail1(item)" bs-modal>-->
+                                            {{ item.Subject }}
+
+                                            <!--</a>-->
+
+
+
+                                        </td>
+
+                                        <td class="text-right" ng-click="$event.stopPropagation()">
+                                            <button type="button" class="btn btn-link btn-round" ng-hide="item.ReadDate==null" data-placement="top" data-title="Leido el {{item.ReadDate | date : 'dd-MM-yyyy  HH:mm:ss'}}" bs-tooltip><i class="md md-check"></i></button>
+                                            <button type="button" class="btn btn-link btn-round" data-title="Ver" ng-click="forwardMail(item)" ng-hide="item.Id==mailItem.Id"><i class="md  md-forward"></i></button>
+
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="footer-buttons">
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <pagination-controls list="outbox()" paged="getOutboxPaged" max="10" rango="1"/>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    </div>

@@ -1,0 +1,26 @@
+﻿
+    <div class="popover">
+        <div class="arrow"></div>
+        <h3 class="popover-title">Diagramas válidos</h3>
+        <div class="popover-content">
+
+
+          
+            <div ng-repeat="d in selectedProyect.Curso.Materia.DiagramasValidos">
+                <div>
+                    <div>
+                       
+                        <a class="timeline-title" ng-click="newModel(rootElement,d.TipoDiagrama)">{{d.TipoDiagrama}}</a>
+
+                    </div>
+                    <div>
+                        <!--<small class="text-muted"><i class="md md-timer"></i>{{m.FechaCreacion}}</small>-->
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+

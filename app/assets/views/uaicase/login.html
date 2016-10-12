@@ -1,0 +1,125 @@
+
+<div class="page-login" init-ripples ng-controller="LoginController" ng-cloak>
+  <div class="center">
+    <div class="card bordered z-depth-2"  style="margin:0% auto; max-width:400px;">
+      <div class="card-header">
+        <div class="brand-logo-uai">
+            <div class="uai-case-title"></div>
+          <div id="logo">
+              <img src="/assets/img/logo uaicase 2 150 x 150.png" id="logo-uai"/>
+           </div>
+
+        </div>
+      </div>
+      <div class="card-content">
+        <div class="m-b-30">
+          <div class="card-title strong pink-text">{{title}}</div>
+          <p class="card-title-desc">
+          Bienvenido a UAI CASE!
+          </p>
+        </div>
+
+        <form class="form-floating" ng-hide="showRegister">
+          <div class="form-group filled">
+            <label for="inputUsername" class="control-label">Email:</label>
+            <input type="text" class="form-control"  ng-model="vm.mail">
+          </div>
+
+          <div class="form-group filled">
+            <label for="inputPassword" class="control-label" >Contraseña:</label>
+            <input type="password" class="form-control" id="inputPassword" ng-model="vm.password">
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox"> Recordar login
+              </label>
+            </div>
+          </div>
+        </form>
+          <form class="form-floating" ng-show="showRegister" name="myForm">
+              <fieldset>
+                  <legend> {{cmd}} {{vm.settings.singular}}</legend>
+                  <div class="form-group">
+                      <label class="control-label">Legajo </label>
+                      <input type="text" class="form-control" ng-model="vm.item.Legajo"  required>
+                  </div>
+
+                  <div class="form-group">
+                      <label class="control-label">Nombre </label>
+                      <input type="text" class="form-control" ng-model="vm.item.Nombre"  required>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label">Apellido </label>
+                      <input type="text" class="form-control" ng-model="vm.item.Apellido" required>
+                  </div>
+
+                  <div class="form-group">
+                      <label class="control-label">Fecha Nacimiento</label>
+                      <input type="text" class="form-control" >  <!--ng-model="item.FechaNacimiento"-->
+                  </div>
+
+                  <div class="form-group">
+                  </div>
+              </fieldset>
+          </form>
+          {{vm.error_message}}
+      </div>
+      <div class="card-action clearfix">
+          <p>usuarios de prueba  [<a href="" ng-click="vm.mail='admin@case.uai.edu.ar';vm.password='admin'">Admin</a>|<a href="" ng-click="vm.mail='docente@case.uai.edu.ar';vm.password='docente'">Adjunto</a>|<a href="" ng-click="vm.mail='docentet@case.uai.edu.ar';vm.password='docente'">Titular</a>|<a href="" ng-click="vm.mail='alumno@case.uai.edu.ar';vm.password='alumno'">Alumno</a>|<a href="" ng-click="vm.mail='alumno2@case.uai.edu.ar';vm.password='alumno2'">Alumno2</a>]</p>
+
+        <div class="pull-right">
+          <!--<button type="button" class="btn btn-link black-text" ng-hide="showRegister">Olvidé la contraseña</button>-->
+          <button type="button" class="btn btn-link black-text" ng-hide="vm.showRegister" ng-disabled="vm.lockLogin" ng-click="vm.login();">Ingresar</button>
+            <!--<button type="button" class="btn btn-link black-text" ng-hide="showRegister"  data-toggle="modal" data-target="#myModal">Crear Cuenta</button>-->
+
+            <button type="button" class="btn btn-lg btn-primary" ng-disabled="!myForm.$valid || vm.registering" ng-hide="!vm.showRegister" ng-click="vm.alumnoPut(item);vm.registering=true;">Registrarse</button>
+
+        </div>
+      </div>
+    </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                  <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">Solicitud de Registro</h4>
+                  </div>
+                  <div class="modal-body">
+                      <form class="form-floating"  name="myForm2">
+                          <fieldset>
+
+                              <div class="form-group">
+                                  <label class="control-label">Legajo </label>
+                                  <input type="text" class="form-control" ng-model="vm.item.Legajo" required>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="control-label">Nombre </label>
+                                  <input type="text" class="form-control" ng-model="vm.item.Nombre" required>
+                              </div>
+                              <div class="form-group">
+                                  <label class="control-label">Apellido </label>
+                                  <input type="text" class="form-control" ng-model="vm.item.Apellido" required>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="control-label">E-Mail</label>
+                                  <input type="text" class="form-control" ng-model="vm.item.Apellido" required >  <!--ng-model="item.FechaNacimiento"-->
+                              </div>
+
+                              <div class="form-group">
+                              </div>
+                          </fieldset>
+                      </form>
+                  </div>
+                  <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      <button type="button" class="btn btn-primary">Enviar</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>

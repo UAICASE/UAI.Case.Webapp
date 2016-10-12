@@ -1,0 +1,149 @@
+<div class="dashboard grey lighten-3">
+  <div class="row no-gutter">
+
+    <div class="col-sm-12 col-md-12 col-lg-9" style="background:#F9F9F9;">
+
+      <div class="p-20 clearfix">
+        <div class="pull-right">
+
+          <!--<div class="btn btn-round-sm btn-link" bs-tooltip title="Nuevo Proyecto"><i class="md md-insert-drive-file"></i></div>-->
+
+        </div>
+        <h4 class="grey-text">
+          <i class="md md-dashboard"></i>
+          <span class="hidden-xs">Dashboard - Resumenes e indicadores</span>
+        </h4>
+      </div>
+
+      <div class="container-fluid">
+<!--
+        <div class="row gutter-14 kpi-dashboard">
+          <div class="col-md-4" ng-hide="user.rol!='Alumno'">
+            <mis-proyectos-widget/>
+          </div>
+          <div class="col-md-4" ng-hide="user.rol=='Admin'">
+            <mis-cursos-widget />
+          </div>
+          <div class="col-md-4" ng-hide="user.rol!='Alumno'">
+              <mis-grupos-widget />
+          </div>
+        </div>
+        <div class="row gutter-14 kpi-dashboard">
+          <div class="col-md-4" ng-hide="vm.user.rol!='Alumno'">
+            <mis-diagramas-widget />
+          </div>
+        </div>
+-->
+        <div class="row gutter-14 kpi-dashboard">
+          <div class="col-md-12">
+            <todo canal="{{userId}}" />
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-lg-3 col-md-12">
+
+      <div class="p-20">
+
+        <h4 class="grey-text m-b-30">Novedades</h4>
+
+
+      </div>
+
+      <div class="p-h-40">
+
+        <div role="tabpanel">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist" ng-init="actionTab=1">
+            <li role="presentation" class="active"><a ng-click="actionTab=1" aria-controls="home" role="tab" data-toggle="tab">Mensajes</a></li>
+
+            <li role="presentation"><a ng-click="actionTab=3" aria-controls="home" role="tab" data-toggle="tab">Logs</a></li>
+          </ul>
+          <!-- Tab panes -->
+          <div class="tab-content m-t-10">
+            <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==1}" ng-controller="ListMailController">
+
+                <ul class="timeline" >
+
+                    <li ng-repeat="i in (getInboxPaged | orderBy:'-FechaCreacion')">
+                        <div class="timeline-badge"><i class="md md-email" ng-hide="i.ReadDate!=null"></i></div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">
+                                    <a ng-class="{bold: (item.ReadDate==null)}" class="ng-scope" data-animation="am-fade-and-slide-top" data-template="assets/uaicase/mail/read-mail-modal.html" ng-click="readMail(i)" bs-modal="modal">
+
+                                        {{i.Subject}}
+
+
+                                    </a>
+
+                                </h4>
+                            </div>
+                            <div class="timeline-body">
+                                <a ng-class="{bold: (i.ReadDate==null)}" class="ng-scope" data-animation="am-fade-and-slide-top" data-template="assets/uaicase/mail/read-mail-modal.html" ng-click="readMail(i)" bs-modal="modal">
+
+                                    {{i.Usuario.Nombre}} {{i.Usuario.Apellido}}
+
+                                </a>
+                                <span spanlaceholder-p></span><br />
+                                <small class="text-muted"><i class="md md-timer" am-time-ago="i.FechaCreacion"></i></small>
+
+                            </div>
+                        </div>
+                    </li>
+                    <li ng-hide="getInbox().length<=8">
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">
+                                    <a class="ng-scope" href="#/mailer">
+                                        Ver todos...
+                                    </a>
+                                </h4>
+                                </div></div>
+                    </li>
+                </ul>
+
+
+
+                  <pagination-controls list="inbox()" paged="getInboxPaged" max="5" rango="1"/>
+
+            </div>
+
+            <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==3}" >
+                <ul class="timeline">
+                    <ver-logs canal="{{user.nameidentifier}}" />
+                    <!--<li ng-repeat="log in (logs| orderObjectBy:'FechaCreacion':'false' )  track by $index">
+                        <div class="timeline-badge">
+          <i class="icon-circle theme-border"></i>
+        </div>
+                        <div class="timeline-badge" ng-bind-html="tipo(log.Tipo)" />
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 class="timeline-title">{{log.Mensaje}}</h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p>{{log.Mensaje2}}</p>
+                                <small class="text-muted"><i class="md md-timer" am-time-ago="log.FechaCreacion"></i></small>
+                            </div>
+                        </div>
+                    </li>-->
+
+
+                </ul>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+  </div>
+
+
+</div>

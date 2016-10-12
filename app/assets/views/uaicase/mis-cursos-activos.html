@@ -1,0 +1,66 @@
+﻿<section>
+    <div class="page-header">
+        <div class="actions">
+            <!--<button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-info-outline"></span></button>
+            <button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-search"></span></button>-->
+        </div>
+        <h1>
+            <i class="md md-people"></i>
+            Mis Cursos Activos
+        </h1>
+        <p class="lead">
+            Aquí podra gestionar sus cursos activos
+
+        </p>
+    </div>
+</section>
+
+<div class="container-fluid"  >
+
+
+    <div ng-hide="cursosActivos.length>0" >
+
+        <div class="bs-component">
+            <div class="alert alert-dismissible alert-info">
+
+                <h4>Atención</h4>
+                <p>No tiene cursos activos</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4" ng-repeat="curso in cursosActivos" >
+        <div class="card bordered">
+            <div class="card-header">
+                <span class="card-title">{{curso.Materia.Nombre.toUpperCase()}}</span>
+
+                <div class="pull-right">
+                    <!--#/academico/curso-->
+                    <a href="#/cursos/{{curso.Id}}" menu-link name="{{curso.Materia.Nombre}}" class="btn btn-link btn-icon" ><i class="md md-open-in-browser black-text"></i></a>
+
+                </div>
+            </div>
+            <div class="card-content">
+                <p><span>Curso</span> {{curso.Materia.Anio}} {{curso.Comision}}</p>
+                <p><span>Año</span> {{curso.Anio}}</p>
+                <p><span>Turno</span> {{curso.Dia}}, {{curso.Turno}}</p>
+
+                <p><span>Localización</span> {{curso.Sede}}</p>
+                <p><span>Docente</span> {{curso.Docente.Apellido}}, {{curso.Docente.Nombre}}</p>
+
+
+
+            </div>
+            <div class="card-action clearfix">
+                <!--<a href="" class="btn btn-link btn-icon"><i class="md md-favorite red-text"></i></a>-->
+
+                <div class="pull-right">
+
+                    <a href="" class="btn btn-link black-text" data-template="assets/views/uaicase/tpl/ver-materia-modal.html" bs-modal >Ver más sobre la materia...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

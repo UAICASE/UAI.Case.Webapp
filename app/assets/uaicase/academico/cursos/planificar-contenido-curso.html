@@ -1,0 +1,68 @@
+﻿
+<div>
+    <div class="card bordered">
+
+        <h3 class="table-title p-20 ">
+
+            Planificación de cursada
+{{curso}}
+        </h3>
+
+
+        <ul class="list-group" ng-repeat="u in clases">
+
+
+            <li class="list-group-item ">
+                <i class="md md-event"></i>
+
+                <span>{{u.Numero}}</span>
+                <span>{{u.Fecha| date:'MM/dd/yyyy' }}</span>
+                <span>{{u.Tipo}}</span>
+
+                <div class="list-actions">
+                    <button type="button" class="btn btn-link btn-round" ng-click="showClase(u)" ng-show="curso.Docente.Id==user.Id"><i class="md md-edit"> </i></button>
+                    <button type="button" class="btn btn-link btn-round" ng-click="showUnidadesClase(u)" ng-show="curso.Docente.Id==user.Id" ><i class="md md-add-box"> </i></button>
+                    <button type="button" class="btn btn-link btn-round" ng-show="u.Unidades.length>0" ng-click="toggleClase(u)" ng-bind-html="unidadesFromClaseClass(u)"></button>
+                </div>
+
+
+                <ul class="list-group"  ng-show="u.visible && u.Unidades.length>0">
+
+                    <li class="list-group-item" ng-repeat="i in u.Unidades">
+                        <i lass="list-group-item" class="md md-content-copy"></i>
+                        <span>{{i.Unidad.Identificador}} - {{i.Unidad.Descripcion}}</span>
+                        <div class="list-actions">
+
+
+                            <button type="button" class="btn btn-link btn-round" ng-show="i.Unidad.Unidades.length>0 || i.Unidad.Contenidos.length>0" ng-click="i.visible=!i.visible"  ng-bind-html="unidadesFromClaseClass(i)"></button>
+
+                        </div>
+
+                         <ul class="list-group"  ng-show="i.visible">
+
+                            <li class="list-group-item" ng-repeat="o in i.Unidad.Contenidos">
+                                <i class="md md-insert-drive-file"></i>
+                                <span>{{o.TipoContenido}}</span>
+                                <span>{{o.Descripcion}}</span>
+                                <div class="list-actions">
+                                    <a href="" class="btn btn-link" ng-click="fileDownload(o.Archivo)"><i class="md md-file-download"></i></a>
+
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>
+
+
+        </ul>
+
+
+
+    </div>
+    <div class="footer-buttons" ng-if="user.rol=='Docente'">
+        <div  class="btn btn-primary btn-round btn-lg" ng-click="addClase();" data-title="Nueva Clase" bs-tooltip><i class="md md-add"></i></div>
+
+    </div>
+</div>

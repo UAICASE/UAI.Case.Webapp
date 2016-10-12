@@ -1,0 +1,62 @@
+﻿<div class="todo-widget card bordered small">
+
+    <div class="card-header">
+
+        <div class="action pull-right">
+            <!--<button type="button" class="btn btn-round btn-flat btn-default" data-title="Clear completed" bs-tooltip ng-click="clearCompleted()">
+                <i class="md md-check"></i>
+            </button>-->
+        </div>
+
+        <h2 class="card-title"><i class="md md-speaker-notes theme-primary"></i> Todo's</h2>
+    </div>
+
+    <div class="card-content">
+        <div class="alert alert-info" ng-show="!todos.length">
+            <p>No hay ninguna tarea pendiente </p>
+        </div>
+        <div class="row">
+
+            <div class="col-md-12" ng-show="todos.length">
+                <h3 class="card-title">Todo</h3>
+                <ul class="list-unstyled">
+                    <li ng-repeat="t in todos track by $id($index)">
+                        <div class="checkbox">
+                            <span class="pull-right">
+
+
+                                <button type="button" class="btn btn-round btn-flat btn-default" ng-click="editTodo(t)" ng-hide="t.Done || t.Usuario.Id!=user.Id">
+                                    <i class="md md-edit"></i>
+                                </button>
+                                <small class="pull-right">{{t.Usuario.Nombre}} {{t.Usuario.Apellido}}</small>
+                            </span>
+
+                            <label ng-class="{strike: t.Done}">
+                                <input ng-model="t.Done" type="checkbox" ng-click="toggleDone(t)" /> {{t.Title}}
+                            </label>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+
+
+        </div>
+        <div class="row">
+            <div class="card-action clearfix ">
+
+                <form class="form">
+                    <div class="form-group input-group">
+                        <input id="todo-title" class="form-control" type="text" ng-model="todo.Title">
+                        <div class="input-group-btn p-l-10">
+                            <button ng-icon="md-save" class="btn btn-default ng-animate-disabled" ng-click="saveTodo(todo)">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>

@@ -1,0 +1,76 @@
+﻿<div class="aside bs-docs-aside" tabindex="-1" role="dialog">
+    <div class="close">
+        
+        <div class="btn btn-round btn-info" ng-click="$hide()"><i class="md md-close"></i></div>
+
+    </div>
+    <div class="aside-dialog">
+
+        <div class="aside-body bs-sidebar">
+            <form class="form-floating form-horizontal" name="myForm" ng-submit="saveItem(item)">
+                <fieldset>
+                    <legend> {{cmd}} {{settings.singular}}</legend>
+                    <div class="form-group filled">
+                        <label class="control-label">Codigo </label>
+                        <input type="text" class="form-control" ng-model="item.Codigo" ng-disabled="!item.editing" required>
+                    </div>
+                    <div class="form-group filled">
+                        <label class="control-label">Nombre </label>
+                        <input type="text" class="form-control" ng-model="item.Nombre" ng-disabled="!item.editing" required>
+                    </div>
+                    <div class="form-group filled">
+                        <label class="control-label">Año  </label>
+                        <input type="number" class="form-control" ng-model="item.Anio " ng-disabled="!item.editing"     min="1" max="5" required>
+                    </div>
+
+                    
+                    <div class="form-group filled ">
+                        <label class="control-label">Titular</label>
+                        <!--<input type="text" class="form-control ng-valid ng-dirty ng-valid-parse ng-touched" ng-model="item.Titular" bs-options="docente as docente.Nombre for docente in getDocentes($viewValue)" bs-typeahead>-->
+                        <input type="text" class="form-control" ng-model="item.Titular" data-min-length="1"  data-auto-select="true"  bs-options="docente as docente.Nombre for docente in docentes"  bs-typeahead>
+                    
+                        <!--<select id="mySel" class="form-control">
+                            <option ng-repeat="i in docentes" ng-selected="item.TitularSelected" ng-model="item.Titular">{{i.Nombre}} {{i.Apellido}}</option>
+                        </select>-->
+
+                    
+
+                     </div>
+                    
+                <div class="form-group filled">
+                    
+                            <label class="control-label">Diagramas Válidos</label>
+                            <input type="text" class="form-control" ng-model="item.DiagramaValidoSelected" data-min-length="1" data-auto-select="true" bs-options="diagrama as diagrama for diagrama in diagramas" bs-typeahead>
+                      
+                            <button  type="button" class="btn btn-md btn-primary inline list-actions" ng-disabled="!myForm.$valid || isLoading" ng-hide="!item.editing" ng-click="addDiagramaToMateria(item)">Agregar</button>
+                    <div class="card">
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="i in item.DiagramasValidos">
+                                <div class="list-actions">
+                                    <a href="" class="btn btn-link"><i class="md md-delete"></i></a>
+                                </div>
+                                {{i.TipoDiagrama}}
+                            </li>
+
+                        </ul>
+                    </div>
+                    </div>
+
+            
+                           
+                      
+
+                    
+                    <div class="form-group filled">
+                        <label class="control-label">Descripcion</label>
+                        <textarea class="form-control vertical" rows="3" ng-model="item.Descripcion" ng-disabled="!item.editing"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" class="btn btn-lg btn-primary" ng-disabled="!myForm.$valid" ng-hide="!item.editing" ng-click="materiaPut()">Guardar</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

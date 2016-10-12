@@ -1,0 +1,66 @@
+﻿
+<div class="aside bs-docs-aside" tabindex="-1" role="dialog">
+    <div class="close">
+     
+        <div class="btn btn-round btn-info" ng-click="$hide()"><i class="md md-close"></i></div>
+
+    </div>
+    <div class="aside-dialog">
+
+        <div class="aside-body bs-sidebar">
+            <form class="form-floating" name="myForm" ng-submit="saveItem()">
+                <fieldset>
+                    <legend>Contenido  Unidad {{unidadContent.Identificador}} </legend>
+                
+
+                    <div class="form-group filled">
+                        <label class="control-label">Descripcion </label>
+                        <input type="text" class="form-control" ng-model="newContent.model.Descripcion" required>
+                    </div>
+                    <div class="form-group filled">
+                        <label class="control-label">Tipo de Contenido </label>
+                       
+
+                        <select name="mySelect" id="mySelect" class="form-control"
+                        ng-options="tipo for tipo in tipoContenido track by tipo"
+                        ng-model="newContent.model.TipoContenido"></select>
+                    
+                       </div>
+                    <div class="form-group">
+                        <input type="file"  file-model="newContent.file" required  class="ng-valid">
+              
+                        
+                      
+                      </div>
+                 
+                   
+                    <div class="form-group">
+                        <button type="button" class="btn btn-lg btn-primary" ng-disabled="!myForm.$valid"  ng-click="postContenido(newContent)">Guardar</button>
+                 
+                    </div>
+                    <div class="card">
+                        <ul class="list-group" ng-repeat="c in unidadContent.Contenidos">
+                            <li class="list-group-item">
+                                <div class="list-actions">
+                                    <a href="" class="btn btn-link"><i class="md md-remove"></i></a>
+                                    <a href="" class="btn btn-link" ng-click="fileDownload(c.Archivo)"><i class="md md-file-download"></i></a>
+                                </div>
+                             
+                                <i class="md md-insert-drive-file"></i>
+                                <i class="md md-"></i>
+                                {{c.TipoContenido}}
+                                {{c.Descripcion}}
+
+                            </li>
+                         
+                        </ul>
+                    </div>
+
+                
+
+                
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

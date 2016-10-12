@@ -1,0 +1,60 @@
+﻿<div class="aside bs-docs-aside" tabindex="-1" role="dialog">
+    <div class="close">
+    
+        <div class="btn btn-round btn-info" ng-click="$hide()"><i class="md md-close"></i></div>
+
+    </div>
+    <div class="aside-dialog">
+
+        <div class="aside-body bs-sidebar">
+            <form class="form-floating" name="myForm" ng-submit="saveItem(item)">
+                <fieldset>
+                    <legend> Unidades de la clase</legend>
+                  
+                    <div class="card bordered">
+                        <ul class="list-group" ng-repeat="u in contenidoMateria">
+                            <li class="list-group-item ">
+                                <i class="md md-content-copy"></i>
+
+                                <span ng-hide="u.editing">{{u.Unidad.Identificador}}</span>
+                                <span ng-hide="u.editing">{{u.Unidad.Descripcion}}</span>
+
+
+                                <div class="list-actions">
+
+
+                                    <button type="button" class="btn btn-link btn-round" ng-click="agregarUnidadClase(u)" ><i class="md md-select-all"> </i></button>
+                                    <button type="button" class="btn btn-link btn-round" ng-click="u.Unidad.visible=!u.Unidad.visible" ng-bind-html="treeClass(u.Unidad)"></button>
+
+                                </div>
+                            </li>
+                            <li class="list-group-item" ng-show="u.Unidad.visible">
+
+                              
+
+                                <ul class="list-group" ng-repeat="i in u.Unidad.Unidades">
+                                    <li class="list-group-item">
+                                        <i class="md md-content-copy"></i>
+                                       <span ng-hide="i.editing">{{i.Identificador}}</span>
+                                       <span ng-hide="i.editing">{{i.Descripcion}}</span>
+                                        <div class="list-actions">
+                                            <button type="button" class="btn btn-link btn-round" ng-click="agregarUnidadClase(u)"><i class="md md-select-all"> </i></button>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-lg btn-primary" ng-disabled="!myForm.$valid" ng-hide="!item.editing" ng-click="docentePut()">Guardar</button>
+                        </div>
+</fieldset>
+            </form>
+        </div>
+    </div>
+</div>

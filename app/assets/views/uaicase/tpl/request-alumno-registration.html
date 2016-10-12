@@ -1,0 +1,45 @@
+﻿<div class="aside bs-docs-aside" tabindex="-1" role="dialog">
+    <div class="close">
+        <span></span>
+        <div class="btn btn-round btn-info"  ng-click="$hide()"><i class="md md-close"></i></div>
+
+    </div>
+    <div class="aside-dialog">
+
+        <div class="aside-body bs-sidebar">
+                <fieldset>
+                    <legend> Solicitud de registro</legend>
+                  
+                    <form class="form-floating" name="myForm">
+                        <div class="form-group filled">
+                            <label class="control-label">Direccion de Email </label>
+                            <input name="newmail" type="text" class="form-control" ng-model="newemail" required valid-user-mail>
+                            <button type="button" ng-disabled="!myForm.newmail.$valid" class="btn btn-lg btn-primary" ng-click="addEmailToRegister(newemail)"><i class="md md-add"></i></button>
+                        </div>
+
+
+                        
+
+
+                        <div class="card">
+                            <ul class="list-group" >
+                                
+                                <li class="list-group-item" ng-repeat="item in registrationsRequest" >
+                                    <div class="list-actions">
+                                        <a href="" class="btn btn-link"><i class="md md-delete"></i></a>
+                                    </div>
+
+                                    {{item}}
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-lg btn-primary" ng-disabled="registrationsRequest.length==0" ng-click="sendRegistrationsRequest()"><i class="md md-send"></i> Enviar</button>
+                        </div>
+                    </form>
+                </fieldset>
+         
+        </div>
+    </div>
+</div>

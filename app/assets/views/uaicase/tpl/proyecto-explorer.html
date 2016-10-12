@@ -1,0 +1,90 @@
+﻿<div class="aside bs-docs-aside" ng-class="{ 'aside-close' : !menuIsOpen }" tabindex="-1" role="dialog" ng-controller="ProyectoExplorerController">
+    <div class="close">
+        <!--<span ng-bind-html="estado(selectedProyect.Estado)" ng-disabled="!item.editing"></span>-->
+        <div class="btn btn-round btn-info" ng-click="$hide()"><i class="md md-close"></i></div>
+
+    </div>
+    <div class="aside-dialog">
+
+
+        <div class="aside-body bs-sidebar">
+
+            <form class="form-floating">
+                <!--ng-submit="saveItem(item)"-->
+                <fieldset>
+
+                    <legend>Explorador de proyecto</legend>
+                    <div class="row row-border">
+
+                        <a class="pull-left btn-xs " ng-click="newModel(undefined,'Package',true)"><i class="md-create"></i> Carpeta</a>
+
+                        <a class="pull-left btn-xs "
+                           title="Nuevo Diagrama"
+                           ng-click="rootElement=undefined"
+                           data-placement="bottom"
+                           data-template="assets/views/uaicase/tpl/new-diagrama-partial.html"
+
+                           data-animation="mat-grow-top-right" bs-popover>
+                           <i class="md-create"></i> Diagrama
+
+
+                        </a>
+                        <a class="pull-right btn-xs "
+                           title="Dashboard" href="#/proyectos/dashboard" ng-click="$hide()">
+                            Dashboard
+                            <!--<i class="md md-email btn btn-round-sm btn-link">  </i>-->
+
+                        </a>
+
+
+
+
+                    </div>
+
+
+                    <script type="text/ng-template" id="tree_item_renderer.html">
+
+                         <a ng-click="node.visible=!node.visible" data-nodrag ng-show="node.IsFolder && !node.editing" name="Herramienta de modelado">
+                            <span class="glyphicon glyphicon-folder-open" ng-show="node.visible"> {{node.Nombre}}</span>
+                             <span class="glyphicon glyphicon-folder-close" ng-hide="node.visible"> {{node.Nombre}}</span>
+                        </a>
+
+
+                        <a ng-click="openDiagram(node)" data-nodrag ng-show="!node.IsFolder && !node.editing" name="Herramienta de modelado">
+                            <span class="glyphicon glyphicon-file"> {{node.Nombre}}</span>
+                        </a>
+                        <input type="text" ng-show="node.editing" ng-model="node.Nombre"  ng-keypress="($event.charCode==13)?saveNode(node):return" required>
+
+                         <a class="pull-right btn-xs "
+                           ng-click="rootElement=node"
+                           data-placement="bottom"
+                           data-template="assets/views/uaicase/tpl/new-diagrama-partial.html"
+                           data-animation="mat-grow-top-right" bs-popover>
+                            <span class="glyphicon glyphicon-equalizer" ng-show="node.IsFolder"></span>
+
+
+                        </a>
+
+                        <a class="pull-right btn-xs " ng-show="node.IsFolder" ng-click="newModel(node,'Package',true)"><i class="glyphicon glyphicon-folder-close"></i> </a>
+                        <a class="pull-right btn-xs " ng-click="node.editing=true;" ng-show="!node.editing" ><i class="glyphicon glyphicon-edit"></i> </a>
+                        <a class="pull-right btn-xs " ng-click="saveNode(node)" ng-show="node.editing"><i class="glyphicon glyphicon-save"></i> </a>
+
+                       <ul ng-show="node.visible">
+                            <li ng-repeat="node in node.Elementos" ng-include="'tree_item_renderer.html'"></li>
+                        </ul>
+                    </script>
+                    <div id="explorador-proyecto">
+                        <ul class="list-group ">
+                            <li ng-repeat="node in selectedProyect.Elementos" ng-include="'tree_item_renderer.html'"></li>
+                        </ul>
+                    </div>
+
+
+
+
+
+</fieldset>
+        </form>
+    </div>
+    </div>
+</div>

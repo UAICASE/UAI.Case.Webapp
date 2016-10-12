@@ -1,0 +1,91 @@
+﻿
+    <div>
+    <div class="card bordered">
+
+        
+        <ul class="list-group" ng-repeat="u in filteredContenido">
+
+
+            <li class="list-group-item ">
+                <i class="md md-content-copy"></i>
+                <input type="text" ng-model="u.Unidad.Identificador" ng-show="u.editing" />
+                <span ng-hide="u.editing">{{u.Unidad.Identificador}}</span>
+                <input type="text" ng-model="u.Unidad.Descripcion" ng-show="u.editing" />
+                <span ng-hide="u.editing">{{u.Unidad.Descripcion}}</span>
+                
+                
+                <div class="list-actions">
+             
+                    <button type="button" class="btn btn-link btn-round" ng-click="u.editing=true" ng-hide="u.editing || materiaSelected.Titular.Id!=user.Id"><i class="md md-edit"> </i></button>
+                    <button type="button" class="btn btn-link btn-round" ng-click="guardarContenido(u)" ng-show="u.editing && materiaSelected.Titular.Id==user.Id"><i class="md md-save"> </i></button>
+                    <button type="button" class="btn btn-link btn-round" ng-click="agregarUnidad(u.Unidad)" ng-show="materiaSelected.Titular.Id==user.Id"><i class="md md-add-box"> </i></button>
+                    <!--<button type="button" class="btn btn-link btn-round" ng-click="saveUnidad(u)"><i class="md md-save"> </i></button>-->
+                    <button type="button" class="btn btn-link btn-round" ng-click="showContenido(u.Unidad) " ng-show="materiaSelected.Titular.Id==user.Id"><i class="md md-attach-file"> </i></button>
+                 
+                  
+                    <button type="button" class="btn btn-link btn-round" ng-click="selectUnidad(u.Unidad)"  ng-hide="u.Unidad.Unidades.length==0 && u.Unidad.Contenidos.length==0" ng-bind-html="treeClass(u.Unidad)"></button>
+
+                </div>
+                <ul class="list-group" ng-repeat="c in u.Unidad.Contenidos" ng-show="u.Unidad.visible">
+                    <li class="list-group-item">
+
+
+                        <i class="md md-insert-drive-file"></i>
+                        <span>{{c.TipoContenido}}</span>
+
+                        <span>{{c.Descripcion}}</span>
+                        <div class="list-actions">
+                            <a href="" class="btn btn-link" ng-click="fileDownload(c.Archivo)"><i class="md md-file-download"></i></a>
+
+                        </div>
+                   
+                    </li>
+                </ul>
+                <ul class="list-group" ng-repeat="i in u.Unidad.Unidades" ng-show="u.Unidad.visible">
+                    <li class="list-group-item">
+                        <i class="md md-content-copy"></i>
+                        <input type="text" ng-model="i.Identificador" ng-show="i.editing" />
+                        <span ng-hide="i.editing">{{i.Identificador}}</span>
+                        <input type="text" ng-model="i.Descripcion" ng-show="i.editing" />
+                        <span ng-hide="i.editing">{{i.Descripcion}}</span>
+                        <div class="list-actions">
+                        
+                                <button type="button" class="btn btn-link btn-round" ng-click="i.editing=true" ng-hide="i.editing || materiaSelected.Titular.Id!=user.Id"><i class="md md-edit"> </i></button>
+                            <button type="button" class="btn btn-link btn-round" ng-click="i.editing=false;saveUnidad(u)" ng-show="i.editing && materiaSelected.Titular.Id==user.Id"><i class="md md-save">  </i></button>
+                            <button type="button" class="btn btn-link btn-round" ng-click="showContenido(i)" ng-show="materiaSelected.Titular.Id==user.Id"><i class="md md-attach-file"> </i></button>
+                            <button type="button" class="btn btn-link btn-round" ng-click="selectSubUnidad(i)" ng-show="i.Contenidos.length>0" ng-bind-html="treeSubClass(i)"></button>
+                        </div>
+                    
+                        <ul class="list-group" ng-show="i.visible">
+                            <li class="list-group-item" ng-repeat="c in i.Contenidos">
+
+                                <i class="md md-insert-drive-file"></i>
+                                <span>{{c.TipoContenido}}</span>
+
+                                <span>{{c.Descripcion}}</span>
+                                <div class="list-actions">
+                                    <a href="" class="btn btn-link" ng-click="fileDownload(c.Archivo)"><i class="md md-file-download"></i></a>
+
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </li>
+
+           
+        </ul>
+        
+        <div class="col-md-12">
+           <pagination-controls list="contenido" paged="filteredContenido" max="5" rango="3" />
+            
+        </div>
+
+    </div>
+    <div class="footer-buttons">
+        <div class="btn btn-primary btn-round btn-lg" ng-click="putContenido()" ng-show="materiaSelected.Titular.Id==user.Id" data-title="Nueva Unidad" bs-tooltip><i class="md md-add"></i></div>
+
+
+    </div>
+</div>

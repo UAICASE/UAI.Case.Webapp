@@ -1,0 +1,77 @@
+﻿<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="$hide()">×</button>
+
+            </div>
+            <div class="modal-body">
+
+
+
+                <div class="row">
+
+                    <div class="col-md-12">
+
+
+                        <div class="card bordered">
+
+
+
+
+                            <table class="table table-full table-full-small">
+                                <thead>
+                                    <tr>
+
+                                        <th></th>
+                                        <th>Alumno</th>
+                                        <th>Notas</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="i in alumnosCurso">
+
+                                        <td class="col-md-2 ">
+                                            <send-mail-widget para="i.Alumno" curso="curso" ></send-mail-widget>
+                                            <estado-usuario usuario="{{i.Alumno.Id}}"></estado-usuario>
+
+
+                                        </td>
+                                        <td class="text-left">{{i.Alumno.Legajo}} {{i.Alumno.Nombre}} {{i.Alumno.Apellido}}</td>
+                                        <td class="text-left col-md-8">
+                                            <span ng-repeat="n in i.Notas">
+
+                                                <button type="button" class="btn btn-link btn-round" data-animation="am-fade-and-slide-top">{{n.Valor}}</button>
+
+
+
+                                            </span>
+                                        </td>
+                                    </tr>
+
+
+
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

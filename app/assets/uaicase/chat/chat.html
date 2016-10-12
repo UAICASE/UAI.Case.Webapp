@@ -1,0 +1,49 @@
+﻿<div>
+    <div class="card border-dark-grey" ng-cloak>
+        <div class="card-header">
+
+            <div class="card-title">{{titulo}}</div>
+            <div class="small grey-text">Para estar en contácto con el grupo de trabajo</div>
+        </div>
+
+        <div id="grupo-chat" class="table-responsive" style="overflow-y: scroll; height:{{alto}}px;">
+
+            <div ng-repeat="m in chats">
+                <div class="col-md-12">
+                    <div class="row">
+                        <span class="message-autor pull-left"><strong>{{m.Usuario.Nombre}}...</strong> </span>
+                        <small class="pull-right">{{m.FechaCreacion | date:'MM/dd/yyyy hh:mm:ss'}}</small>
+
+                    </div>
+                    <div class="grupo-chat-msg row">
+
+                        {{m.Mensaje}}
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <small class="chat-message-info">{{message}}</small>
+        <form class="form">
+            <div class="form-group input-group">
+                <input id="todo-title" class="form-control" type="text" ng-model="chatMessage" ng-change="isTyping()">
+
+
+                <div class="input-group-btn p-l-10">
+                    <button ng-icon="md-save" class="btn btn-default ng-animate-disabled" ng-click="sendChatMessage()" ng-disabled="chatMessage.length<=0">Enviar...</button>
+
+                </div>
+
+
+
+
+            </div>
+        </form>
+
+
+
+    </div>
+
+</div>

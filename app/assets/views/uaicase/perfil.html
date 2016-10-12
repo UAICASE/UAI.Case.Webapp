@@ -1,0 +1,132 @@
+﻿<section>
+    <div class="page-header">
+        <h1>
+            <i class="md md-input"></i>
+            Mi Perfil
+        </h1>
+        <p class="lead">
+            Mantenga su perfil actualizado!
+        </p>
+    </div>
+
+
+    <div class="row  m-b-40">
+        <div class="col-md-8">
+            <div class="well white" id="forms-validation-container">
+                <form class="form-floating" name="myForm">
+                    <fieldset>
+                        <legend>Datos del perfil</legend>
+
+                        <div class="row p-b-15">
+                            <div class="col-lg-6">
+                                <div class="form-group filled">
+                                    <label class="control-label">Rol</label>
+                                    <input type="text" class="form-control filled" ng-model="usuario.Rol" ng-disabled="true"  >
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group filled">
+                                    <label class="control-label">Legajo</label>
+                                    <input type="text" class="form-control filled" ng-model="usuario.Legajo" ng-disabled="true">
+                                </div>
+                                <!--<div class="form-group">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="md md-account-box"></i>Rol</span>
+                                            <input type="text" class="form-control" value=" usuario.Rol" ng-disabled="true">
+
+
+
+              </div>
+
+
+                                </div>-->
+                            </div>
+                        </div>
+
+                        <div class="row p-b-15">
+                            <div class="col-lg-6">
+                                <div class="form-group filled" >
+                                    <label class="control-label">Apellido</label>
+                                    <input type="text" class="form-control " ng-model="usuario.Apellido" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group filled">
+                                    <label class="control-label">Nombre</label>
+                                    <input type="text" class="form-control filled" ng-model="usuario.Nombre" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row p-b-15">
+                            <div class="col-lg-12">
+                                <div class="form-group filled">
+                                    <label class="control-label">Email</label>
+                                    <input type="email" class="form-control" ng-model="usuario.Mail" required>
+                                </div>
+
+                            </div>
+                            </div>
+
+                        <div class="row p-b-15">
+                            <div class="col-lg-6">
+                                <div class="form-group filled">
+                                    <label class="control-label">Fecha de Nacimiento</label>
+                                    <input type="text" class="form-control" ng-model="usuario.FechaNacimiento" data-autoclose="1" bs-datepicker>
+                                </div>
+                                </div>
+                            </div>
+                        <div class="row p-b-15">
+                            <div class="col-lg-12">
+                                <div class="form-group filled">
+                                    <label class="control-label">Información del perfil</label>
+                                    <textarea class="form-control vertical" rows="3" ng-model="usuario.Perfil" data-autoclose="1"></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-primary" ng-disabled="!myForm.$valid" ng-click="guardar()">Guardar</button>
+
+                                </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="well white">
+                <form class="form-floating ng-pristine ng-valid">
+                    <fieldset>
+                        <legend>Cambio de contraseña</legend>
+                        <span class="help-block">La nueva contraseña no puede ser igual a la anterior!</span>
+                        <div class="form-group">
+                            <label for="inputOld" class="control-label" >Password Actual</label>
+                            <input type="password" class="form-control" ng-model="dto.OldPassword">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputNewPassword" class="control-label" ng-model="dto.NewPassword">Nuevo</label>
+                            <input type="password" class="form-control" id="inputPassword" ng-model="dto.NewPassword">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="reInputPassword" class="control-label">Reingrese</label>
+                            <input type="password" class="form-control" id="inputPassword" ng-model="dto.ValidatePassword">
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" ng-click="changePassword()">Guardar</button>
+
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+        </div>
+
+
+</section>

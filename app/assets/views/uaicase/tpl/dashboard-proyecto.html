@@ -1,0 +1,88 @@
+﻿<div class="dashboard grey lighten-3" ng-controller="ProjectDashboardController">
+    <div class="row no-gutter">
+
+        <div class="col-sm-12 col-md-12 col-lg-9" style="background:#F9F9F9;">
+
+            <div class="p-20 clearfix">
+                <div class="pull-right">
+
+                    <!--<div class="btn btn-round-sm btn-link" bs-tooltip title="Nuevo Proyecto"><i class="md md-insert-drive-file"></i></div>-->
+
+                </div>
+                <h4 class="grey-text">
+                    <i class="md md-dashboard"></i>
+                    <span class="hidden-xs">Dashboard del proyecto</span>
+                </h4>
+            </div>
+
+            <div class="container-fluid">
+
+
+                <div role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist" ng-init="actionTab=1">
+                        <li role="presentation" class="active"><a ng-click="$emit('chat:toggle',false);actionTab=1" aria-controls="home" role="tab" data-toggle="tab">Principal</a></li>
+
+                        <li role="presentation"><a ng-click="$emit('chat:toggle',true);actionTab=2" aria-controls="home" role="tab" data-toggle="tab">Chat ({{(chats |filter: {isNew:true}).length}})</a></li>
+                        <li role="presentation"><a ng-click="$emit('chat:toggle',false);actionTab=3" aria-controls="home" role="tab" data-toggle="tab">Pendientes ({{(todos |filter: {Done:false}).length}})</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content m-t-10">
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==1}">
+
+                            
+                            principal
+                        </div>
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==2}">
+                            <div class="col-lg-9 col-lg-offset-1">
+                                <ver-chat canal="{{proyecto.Id}}" titulo="Chat del Proyecto" chats="chats"/>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==3}">
+                            <div class="col-lg-9 col-lg-offset-1">
+                                <todo-grupal canal="{{proyecto.Id}}" todos="todos" />
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+
+              </div>
+
+            </div>            
+
+
+                    
+
+                <div class="col-lg-3 col-md-12">
+
+
+
+                    <div class="p-h-40">
+
+                        <div role="tabpanel">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist" ng-init="tab=1">
+                                <li role="presentation" class="active"><a ng-click="tab=1" aria-controls="home" role="tab" data-toggle="tab">Logs</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content m-t-10">
+
+
+                                <div role="tabpanel" class="tab-pane active">
+                              
+                                    <ver-logs logs="logs" />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+</div>

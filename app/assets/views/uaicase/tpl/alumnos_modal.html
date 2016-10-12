@@ -1,0 +1,153 @@
+﻿<div class="modal" tabindex="-1" role="dialog" ng-controller="alumnosController">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="$hide()">&times;</button>
+            </div>
+            <div class="modal-body">
+
+
+
+                <div class="row">
+
+
+
+                    <div class="p-h-40">
+
+                        <div role="tabpanel">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs" role="tablist" ng-init="actionTab=1">
+                                <li role="presentation" ng-class="{active: actionTab==1}"><a ng-click="actionTab=1" aria-controls="home" role="tab" data-toggle="tab">Alumnos</a></li>
+                                <li role="presentation" ng-class="{active: actionTab==2}"class=""><a ng-click="actionTab=2" aria-controls="home" role="tab" data-toggle="tab" >Grupos</a></li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content m-t-10">
+                                <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==1}">
+
+                                    <div class="form-group filled">
+                                        <div class="col-md-12">
+                                            <div class="card bordered">
+
+
+                                                <div class="table-responsive">
+                                                    <table class="table table-full table-full-small">
+                                                        <thead>
+                                                            <tr>
+                                                                <th><input type="checkbox" class="relative" ng-model="selectAll" ng-click="checkAll()" /></th>
+                                                                <th>Legajo</th>
+                                                                <th>Alumno</th>
+                                                                <th>Grupo</th>
+                                                                <th class="text-right">Acciones</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr ng-repeat="i in alumnosCurso">
+                                                                <td class="text-left"><input type="checkbox" class="relative" ng-model="i.selected" ng-click="$event.stopPropagation()" /></td>
+                                                                <td class="text-left">{{i.Alumno.Legajo}}</td>
+                                                                <td class="text-left">{{i.Alumno.Nombre}} {{i.Alumno.Apellido}}</td>
+                                                               <td class="text-left">
+
+                                                                   <!--<select name="singleSelect" id="singleSelect" ng-model="i.grupoSelected">
+
+                                                                       <option ng-repeat="grupo in gruposCurso" value="{{grupo.Id}}">{{grupo.Identificador}}</option>
+                                                                   </select>-->
+                                                              {{i.Grupo.Identificador}}
+                                                                  </td>
+                                                                <td class="text-right">
+
+                                                                    <estado-usuario usuario="{{i.Alumno.Id}}" />
+                                                                    <button type="button" class="btn btn-link btn-round" ng-click="sendMail([i])"><i class="md md-mail"></i></button>
+
+                                                                </td>
+                                                            </tr>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="btn btn-primary btn-round btn-lg m-r-10 btn-footer" ng-show="(alumnosCurso|filter:{selected: true}).length" ng-click="sendMail((alumnosCurso|filter:{selected: true}))" data-title="Enviar" bs-tooltip><i class="md md-mail"></i></div>
+
+
+                                </div>
+                                <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==2}">
+
+
+                                    <fieldset>
+
+                                        <form class="form-floating" name="formCursoAdd" ng-show="user.rol=='Docente'">
+                                            <div class="form-group">
+                                                <label class="control-label">Identificador </label>
+                                                <input name="nroGrupo" type="text" class="form-control" ng-model="nroGrupo" required>
+                                                </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Maximo de Alumnos </label>
+                                                <input name="nroGrupo" type="text" class="form-control" ng-model="MaxAlumnos" required>
+                                            </div>
+
+                                            <button type="button" ng-disabled="!formCursoAdd.$valid" class="btn btn-lg btn-primary" ng-click="addGrupo(nroGrupo,MaxAlumnos )"><i class="md md-add"></i></button>
+                                        </form>
+
+
+
+                                        <div class="table-responsive">
+                                            <table class="table table-full table-full-small">
+                                                <thead>
+                                                    <tr>
+                                                        <th><input type="checkbox" class="relative" ng-model="selectAll" ng-click="checkAll()"  ng-show="user.rol=='Docente'"/></th>
+                                                        <th>Grupo</th>
+                                                        <th>Maximo</th>
+                                                        <th class="text-right">Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="i in gruposCurso">
+                                                        <td class="text-left"><input type="checkbox" class="relative" ng-model="i.selected" ng-click="$event.stopPropagation()" ng-show="user.Rol=='Docente'" /></td>
+                                                        <td class="text-left">{{i.Identificador}}</td>
+                                                        <td class="text-left">{{i.Maximo}}</td>
+
+                                                        <td class="text-right">
+
+                                                            <!--<i class="btn btn-link btn-round md md-check" ng-show="user.Rol=='Alumno' && i.isInGroup"></i>-->
+                                                            <button type="button" class="btn btn-link btn-round" ng-click="removeAlumnoFromGrupo(i)" ng-show="user.rol=='Alumno' && i.isInGroup"><i class="md md-remove"></i></button>
+                                                            <button type="button" class="btn btn-link btn-round" ng-click="putAlumnoInGrupo(i)" ng-show="user.rol=='Alumno' && !i.isInGroup" ><i class="md md-group-work" ></i></button>
+
+                                                            <button type="button" class="btn btn-link btn-round" ng-click="sendMail([i])"><i class="md md-mail"></i></button>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </fieldset>
+
+
+
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

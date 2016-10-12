@@ -1,0 +1,255 @@
+﻿
+<section>
+    <div class="page-header">
+        <div class="actions">
+            <!--<button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-info-outline"></span></button>
+            <button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-search"></span></button>-->
+        </div>
+        <h1>
+            <i class="md md-people"></i>
+            Materia
+        </h1>
+        <p class="lead">
+            Aquí encontrara toda la información sobre la materia
+
+        </p>
+    </div>
+</section>
+<div>
+    <h3 class="table-title">
+        <strong>Titular</strong> {{materia.Titular.Nombre}}, {{materia.Titular.Apellido}}
+        <send-mail-widget para="materia.Titular" curso="curso" ></send-mail-widget>
+        <estado-usuario usuario="{{materia.Titular.Id}}" />
+
+    </h3>
+
+    <div class="dashboard">
+
+        <div class="row no-gutter">
+
+            <div class="col-md-10">
+                <div role="tabpanel">
+                    <ul class="nav nav-tabs" role="tablist" ng-init="mainActionTab=1">
+                        <li role="presentation" class="active"><a ng-click="$emit('chat:toggle',false);mainActionTab=1" aria-controls="home" role="tab" data-toggle="tab">Principal</a></li>
+                        <!--<li role="presentation"><a ng-click="mainActionTab=2;" aria-controls="home" role="tab" data-toggle="tab">Salón de Chat</a></li>-->
+                        <li role="presentation"><a ng-click="$emit('chat:toggle',true);mainActionTab=2" aria-controls="home" role="tab" data-toggle="tab">Salón de Chat ({{(chats |filter: {isNew:true}).length}})</a></li>
+                        <li role="presentation"><a ng-click="$emit('chat:toggle',false);mainActionTab=3;getContenido();" aria-controls="home" role="tab" data-toggle="tab">Gestión de Contenido</a></li>
+                        <li role="presentation"><a ng-click="$emit('chat:toggle',false);mainActionTab=4;" aria-controls="home" role="tab" data-toggle="tab">Rendimiento Académico</a></li>
+                    </ul>
+                    <div class="tab-content m-t-10">
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==1}">
+                            <div class="col-lg-12">
+
+                                <div class="col-lg-8 col-lg-offset-2">
+                                    <div class="card bordered">
+                                        <h3 class="table-title p-20 ">
+
+                                            Listado de Cursos Activos
+
+                                        </h3>
+                                        <table class="table table-striped table-full table-full-small">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>Legajo</th>
+                                                    <th>Docente</th>
+                                                    <th>Curso</th>
+                                                    <th class="text-right">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="i in materiaCursos | filter:{Activo:true}">
+
+                                                    <td class="text-left">{{i.Docente.Legajo}}</td>
+                                                    <td class="text-left">{{i.Docente.Nombre}} {{i.Docente.Apellido}}</td>
+                                                    <td class="text-left">
+
+                                                        {{i.Sede}}, {{i.Turno}} {{i.Dia}} {{i.Anio}}
+
+
+                                                    </td>
+
+                                                    <td class="text-right">
+                                                        <button type="button" class="btn btn-link btn-round" data-animation="am-fade-and-slide-top" ng-click="loadAlumnosCurso(i)" data-template="assets/views/uaicase/tpl/rendimiento-academico-modal.html" bs-modal><i class="md md-check-box"></i></button>
+                                                        <send-mail-widget para="i.Docente" curso="curso" ></send-mail-widget>
+                                                        <estado-usuario usuario="{{i.Docente.Id}}" />
+
+
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+
+
+                            </div>
+
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==2}">
+                            <div class="col-lg-8 col-lg-offset-2">
+
+                                <ver-chat canal="{{materiaId}}" titulo="Chat de la Materia" />
+
+
+                            </div>
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==3}">
+                            <div class="col-lg-8 col-lg-offset-2" ng-if="materia">
+                                <mostrar-contenido-materia materia="materia" />
+                            </div>
+
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==4}">
+                            <div class="col-lg-12" style="background:#F9F9F9;">
+                                <div class="col-md-6">
+                                    <div class="card bordered">
+                                        <h3 class="table-title p-20 ">
+
+                                            Listado de Cursos Activos
+
+                                        </h3>
+                                        <table class="table table-striped table-full table-full-small">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>Legajo</th>
+                                                    <th>Docente</th>
+                                                    <th>Curso</th>
+                                                    <th class="text-right">Acciones</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="i in materiaCursos | filter:{Activo:true}">
+
+                                                    <td class="text-left">{{i.Docente.Legajo}}</td>
+                                                    <td class="text-left">{{i.Docente.Nombre}} {{i.Docente.Apellido}}</td>
+                                                    <td class="text-left">
+
+                                                        {{i.Sede}}, {{i.Turno}} {{i.Dia}} {{i.Anio}}
+
+
+                                                    </td>
+
+                                                    <td class="text-right">
+                                                        <button type="button" class="btn btn-link btn-round" ng-click="loadNotasFromCurso(i)" ng-bind-html="selectCursoClass(i) "></button>
+                                                        <send-mail-widget para="i.Docente" curso="curso" ></send-mail-widget>
+                                                        <estado-usuario usuario="{{i.Docente.Id}}" />
+                                                      
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+
+
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card no-margin" ng-show="selectedCursoRendimiento !=undefined">
+
+                                        <div class="table-responsive white">
+                                            <div class="close left-close">
+
+
+
+                                            </div>
+                                            <h3 class="table-title p-20 ">
+
+                                                Resumen por Curso
+
+                                            </h3>
+
+                                            <table class="table table-hover table-bordered table-full table-full-small">
+                                                <colgroup>
+                                                    <col class="auto-cell-size">
+                                                </colgroup>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Concepto</th>
+                                                        <th>Aprobados</th>
+                                                        <th>Desaprobados</th>
+                                                        <th>Ausentes</th>
+                                                        <th>Total</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                    <tr class="ng-scope">
+                                                        <td class="ng-binding">1er Parcial</td>
+                                                        <td class="ng-binding">{{(notasAprobados | filter: TipoNota='PrimerParcial').length}}</td>
+                                                        <td class="ng-binding">{{(notasDesaprobados | filter: TipoNota='PrimerParcial').length}}</td>
+                                                        <td class="ng-binding">{{(notasAusentes | filter: TipoNota='PrimerParcial').length}}</td>
+
+                                                        <td class="ng-binding">{{(notasCurso | filter: TipoNota='PrimerParcial').length}}</td>
+                                                    </tr><!-- end ngRepeat: (key, item) in data -->
+                                                    <tr class="ng-scope">
+                                                        <td class="ng-binding">2do Parcial</td>
+                                                        <td class="ng-binding">{{(notasAprobados | filter: TipoNota='SegundoParcial').length}}</td>
+                                                        <td class="ng-binding">{{(notasDesaprobados | filter: TipoNota='SegundoParcial').length}}</td>
+                                                        <td class="ng-binding">{{(notasAusentes | filter: TipoNota='SegundoParcial').length}}</td>
+                                                        <td class="ng-binding">{{(notasCurso | filter: TipoNota='SegundoParcial').length}}</td>
+                                                    </tr><!-- end ngRepeat: (key, item) in data -->
+                                                    <tr class="ng-scope">
+                                                        <td class="ng-binding">Recupreatorio</td>
+                                                        <td class="ng-binding">{{(notasAprobados | filter: TipoNota='Recuperatorio').length}}</td>
+                                                        <td class="ng-binding">{{(notasDesaprobados | filter: TipoNota='Recuperatorio').length}}</td>
+                                                        <td class="ng-binding">{{(notasAusentes | filter: TipoNota='Recuperatorio').length}}</td>
+                                                        <td class="ng-binding">{{(notasCurso | filter: TipoNota='Recuperatorio').length}}</td>
+                                                    </tr><!-- end ngRepeat: (key, item) in data -->
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist" ng-init="actionTab=1">
+                        <li role="presentation" class="active"><a ng-click="actionTab=1" aria-controls="home" role="tab" data-toggle="tab">Logs</a></li>
+                        <li role="presentation"><a ng-click="actionTab=2" aria-controls="home" role="tab" data-toggle="tab">Mensajes</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content m-t-10">
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==1}">
+
+
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==2}">
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

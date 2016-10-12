@@ -1,0 +1,68 @@
+﻿<section>
+    <div class="page-header">
+        <div class="actions">
+            <!--<button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-info-outline"></span></button>
+            <button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-search"></span></button>-->
+        </div>
+        <h1>
+            <i class="md md-group-work"></i>
+            Mis Grupos Activos
+        </h1>
+        <p class="lead">
+            Aquí podra gestionar sus grupos activos
+
+        </p>
+    </div>
+</section>
+
+<div class="container-fluid" >
+
+
+    <div ng-show="grupos.length==0" ng-cloak>
+
+        <div class="bs-component">
+            <div class="alert alert-dismissible alert-info">
+
+                <h4>Atención</h4>
+                <p>No tiene grupos activos</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4" ng-repeat="grupo in grupos" >
+        <div class="card bordered">
+            <div class="card-header">
+                <span class="card-title">{{grupo.Curso.Materia.Nombre.toUpperCase()}}</span>
+
+                <div class="pull-right">
+                    <!--#/academico/grupo-->
+                    <a href="#/grupos/{{grupo.Id}}" menu-link name="{{grupo.Curso.Materia.Nombre}}" class="btn btn-link btn-icon"><i class="md md-open-in-browser black-text"></i></a>
+
+                </div>
+            </div>
+            <div class="card-content">
+                <p class="text-left">{{grupo.Identificador}}</p>
+                <p class="text-left"><span>Maximo</span> {{grupo.Maximo}} alumnos</p>
+                <p><span>Curso</span> {{grupo.Curso.Materia.Anio}} {{grupo.Curso.Comision}}</p>
+                <p><span>Año</span> {{grupo.Curso.Anio}}</p>
+
+                <p><span>Turno</span> {{grupo.Curso.Dia}}, {{grupo.Curso.Turno}}</p>
+                <p><span>Localización</span> {{grupo.Curso.Sede}}</p>
+                <p><span>Docente</span> {{grupo.Curso.Docente.Apellido}}, {{grupo.Curso.Docente.Nombre}}</p>
+
+
+
+            </div>
+            <div class="card-action clearfix">
+                <!--<a href="" class="btn btn-link btn-icon"><i class="md md-favorite red-text"></i></a>-->
+
+                <div class="pull-right">
+
+                    <a href="" class="btn btn-link black-text" ng-init="curso=grupo.Curso" data-template="assets/views/uaicase/tpl/ver-materia-modal.html" bs-modal>Ver más sobre la materia...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

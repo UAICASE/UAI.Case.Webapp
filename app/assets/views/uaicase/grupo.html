@@ -1,0 +1,185 @@
+﻿
+    <section>
+        <div class="page-header"  >
+            <div class="actions">
+                <!--<button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-info-outline"></span></button>
+                <button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-search"></span></button>-->
+            </div>
+            <h1>
+                <i class="md md-group-work"></i>
+                Grupo
+            </h1>
+            <p class="lead">
+                Aquí encontrara toda la información sobre el grupo
+
+            </p>
+        </div>
+    </section>
+
+<div >
+    <h3 class="table-title" >
+        <strong>Docente</strong> {{grupo.Grupo.Curso.Docente.Nombre}}, {{grupo.Grupo.Curso.Docente.Nombre}}
+        <send-mail-widget para="grupo.Grupo.Curso.Docente" curso="grupo.Grupo.Curso" ></send-mail-widget>
+        <estado-usuario usuario="{{grupo.Grupo.Curso.Docente.Id}}"></estado-usuario>
+    </h3>
+    <div class="dashboard ">
+
+
+        <div class="row no-gutter">
+
+            <div class="col-md-10">
+                <div role="tabpanel">
+                    <ul class="nav nav-tabs" role="tablist" ng-init="mainActionTab=1">
+                        <li role="presentation" class="active"><a ng-click="$emit('chat:toggle',false);mainActionTab=1" aria-controls="home" role="tab" data-toggle="tab">Principal</a></li>
+                        <li role="presentation"><a ng-click="$emit('chat:toggle',true); mainActionTab=2" aria-controls="home" role="tab" data-toggle="tab">Salón de Chat ({{(chats |filter: {isNew:true}).length}})</a></li>
+                        <li role="presentation"><a ng-click="$emit('chat:toggle',false);mainActionTab=3" aria-controls="home" role="tab" data-toggle="tab">Pendientes ({{(todos |filter: {Done:false}).length}})</a></li>
+                        <li role="presentation"><a ng-click="$emit('chat:toggle',false);mainActionTab=4" aria-controls="home" role="tab" data-toggle="tab">Proyectos CASE</a></li>
+                    </ul>
+                    <div class="tab-content m-t-10">
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==1}">
+                            <div class="col-lg-12" style="background:#F9F9F9;">
+
+                                <div class="col-lg-8 col-lg-offset-2">
+
+                                    <lista-alumnos alumnos="grupo.Alumnos" titulo="Alumnos del Grupo" curso="grupo.Grupo.Curso" />
+
+
+
+                                </div>
+
+
+
+                            </div>
+
+
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==2}">
+
+                            <div class="col-lg-8 col-lg-offset-2">
+
+                                <ver-chat canal="{{grupoId}}" titulo="Chat del Grupo" />
+
+
+                            </div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==3}">
+
+                            <div class="col-lg-8 col-lg-offset-2">
+
+
+                                <div class="col-lg-9 col-lg-offset-1">
+                                    <todo canal="{{grupoId}}"  />
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==4}">
+
+                            <div class="p-10">
+                                <section>
+                                    <div class="page-header">
+                                        <div class="actions">
+                                            <!--<button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-info-outline"></span></button>
+                                <button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-search"></span></button>-->
+                                        </div>
+                                        <h1>
+                                            <i class="md md-work"></i>
+                                            Gestión de Proyectos CASE del Grupo
+                                        </h1>
+                                        <p class="lead">
+                                            Aquí encontrara todos sus proyectos compartidos para el grupo
+                                            <!--<u>UAI CASE</u>.-->
+                                        </p>
+                                    </div>
+                                </section>
+
+
+
+                                <gestion-proyectos room="{{grupoId}}" rol="Alumno" target="Grupo" />
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+         <div class="col-md-2">
+             <div role="tabpanel">
+                 <!-- Nav tabs -->
+                 <ul class="nav nav-tabs" role="tablist" ng-init="actionTab=1">
+                     <li role="presentation" class="active"><a ng-click="actionTab=1" aria-controls="home" role="tab" data-toggle="tab">Logs</a></li>
+                     <li role="presentation"><a ng-click="actionTab=2" aria-controls="home" role="tab" data-toggle="tab">Mensajes</a></li>
+                 </ul>
+                 <!-- Tab panes -->
+                 <div class="tab-content m-t-10">
+                     <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==1}">
+                         <!--<ul class="timeline" ng-init="">
+                             <li ng-repeat="i in (logs| orderObjectBy:'FechaCreacion':'false' )  track by $index">
+
+                                 <div class="timeline-panel">
+                                     <div class="timeline-heading">
+                                         <h4 class="timeline-title">
+                                             {{i.Mensaje}}
+
+
+
+                                         </h4>
+                                     </div>
+                                     <div class="timeline-body">
+                                         <p>{{i.Mensaje2}}</p>
+                                         <small class="text-muted"><i class="md md-timer" am-time-ago="i.FechaCreacion"></i> por {{i.Usuario.Nombre}}</small>
+
+                                     </div>
+                                 </div>
+                             </li>
+
+
+                         </ul>-->
+                         <ver-logs canal="{{grupoId}}" />
+
+
+                     </div>
+                     <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==2}">
+
+
+
+
+
+
+                     </div>
+                 </div>
+             </div>
+
+         </div>
+
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+</div>

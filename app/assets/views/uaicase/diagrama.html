@@ -1,0 +1,130 @@
+<section id="uai-case-controller" class="uaicase-app" ng-controller="diagramaController">
+
+<div class="page-header">
+    
+    <h1>
+        <i class="glyphicon glyphicon-equalizer"></i>
+         {{diagrama.Nombre}} 
+     
+    </h1>
+    <p class="lead">
+
+        <div class="diagrama-toolbox">
+
+            <button type="button" ng-click="save()"><i class="glyphicon glyphicon-floppy-disk"></i></button>
+            <!--<button type="button" id="btn-print" ng-click="printDiagram();"><i class="md md-print"></i></button>-->
+            <button type="button" id="btn-save" ng-click="exportDiagramAsPNG();"><i class="md md-image"></i></button>
+            <button type="button" id="btn-zoom-in" ng-click="zoomin()"><i class="glyphicon glyphicon-zoom-in"></i></button>
+            <button type="button" id="btn-zoom-out" ng-click="zoomout()"><i class="glyphicon glyphicon-zoom-out"></i></button>
+            <button type="button" id="btn-zoom-to-fit" ng-click="zoomfit()"><i class="glyphicon glyphicon-fullscreen"></i></button>
+            <button type="button" id="btn-undo"><i class="md md-undo" ng-click="undo()"></i></button>
+            <button type="button" id="btn-redo"><i class="md md-redo" ng-click="redo()"></i></button>
+            <button type="button" value="ToggleStencil" ng-click="toggleStencil();">Herramientas</button>
+            <button type="button" value="ToggleInspector" ng-click="toggleInspector();">Inspector</button>
+            <button type="button" value="ToggleInspector" ng-click="toggleNavigator();">Navegador</button>
+            <button type="button" id="btn-redo" ng-click="toggleChat();"><i class="md md-people"></i> ({{(chats |filter: {isNew:true}).length}})</button>
+            <button type="button" id="btn-redo" ng-click="toggleEvaluaciones();"><i class="md  md-messenger"></i>({{evaluaciones.length}})</button>
+            
+            <button type="button" id="btn-redo" ng-click="closeDiagram();"><i class="md md-close"></i></button>
+            
+        </div>
+      
+        
+    </p>
+</div>
+
+
+    <div class="row" joint-diagram="{{diagrama.DiagramType}}"></div>
+    
+    <div ng-class="stencilClass()" ng-hide="!showStencil"  ng-animate="box">
+        
+        <div class="row">
+            <joint-stencil id="stencil-holder">
+            </joint-stencil>
+
+        </div>
+    </div>
+
+       
+            <!--<div id="stencil2"></div>-->
+       <joint-paper ng-class="paperClass()" width="900" height="1900" grid="1" ><div id="paper-holder"></div></joint-paper>
+                
+  <joint-inspector ng-class="inspectorClass()" ng-hide="!showInspector" ><div id="inspector-holder-create"></div></joint-inspector>
+        
+    
+    <div ng-class="evaluacionClass()" ng-hide="!showEvaluaciones">
+        
+       
+
+
+        <div class="card col-md-12" >
+            <div class="card-header relative">
+                <div class="card-title">Evaluaciones</div>
+                <div class="small grey-text">Evalauciones Recibidas</div>
+
+                
+            </div>
+
+            <div class="list-group">
+                <a href="" class="list-group-item clearfix ng-scope" ng-repeat="i in filteredEvaluaciones" ng-mouseover="highlightElement(i.ModeloId);i.options=true;" ng-mouseleave="unhightlightElement(i.ModeloId); i.options=false;">
+                    <div class="pull-left m-r-10">
+                        <i class="md md-forum"></i>
+                    </div>
+                    <div class="list-group-item-heading" >{{i.Usuario.Nombre}} {{i.Usuario.Apellido}}</div>
+                    <span class="list-group-item-text"><p>{{i.Descripcion}}</p></span>
+                    <span class="list-group-item-text text-muted small" ><i class="md-timer" am-time-ago="i.FechaCreacion"></i></span>
+                    
+                    <span class="text-right small btn btn-link btn-round" ng-click="finalizarEvaluacion(i)" ng-hide="!i.options || i.Estado=='Pendiente' || i.Estado=='Finalizada' ||user.Rol!='Docente'"><i class="md-cancel"></i></span>    
+                </a>
+                <pagination-controls list="evaluaciones" paged="filteredEvaluaciones" max="10" rango="1" />
+
+            </div>
+
+        </div>
+
+        
+           
+
+
+        
+      
+
+             
+      
+    </div>       
+    <div ng-class="chatClass()" ng-hide="!showChat " >
+       
+            <div class="row">
+            <ver-chat canal="{{selectedDiagramId}}" titulo="Chat" chats="chats" />    
+        </div>
+     
+        <div class="row">
+
+            <lista-alumnos titulo="Colaboradores" alumnos="colaboradores" curso="selectedProyect.Curso" observadores="true" room="{{selectedDiagramId}}" />
+
+        </div>
+
+        
+    </div>
+    
+
+  <!--<joint-navigator ng-hide="!showNavigator" />-->
+        
+
+
+
+        
+    
+
+</section>
+
+
+  
+
+<script>
+    
+
+      
+
+       
+</script>

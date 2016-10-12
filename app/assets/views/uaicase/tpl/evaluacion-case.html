@@ -1,0 +1,83 @@
+﻿<div ng-controller="evaluacionCaseController">
+        <form class="form-floating" name="myForm" >
+
+                    <div class="panel">
+
+                        <div class="panel-body card">
+                            <ul class="list-group"  ng-repeat="c in filteredEvaluaciones " no-animate>
+                                <li class="list-group-item">
+                                    <span class="badge badge-success" ng-show="c.Respuestas.length>0">{{c.Respuestas.length}}</span>
+                                    <div class="list-actions">
+                                        <button class="btn btn-link btn-round" ng-click="c.editable=true;" ng-hide="c.editable || c.Estado!='Pendiente' ||user.Rol!='Docente'"><i class="md-edit"></i></button>
+
+                                        <button class="btn btn-link btn-round" ng-click="responder(c)" ng-show="!c.editable && (c.Estado=='EnCurso' || c.Estado==2)" ><i class="md-question-answer"></i></button>
+
+
+
+                                        <button class="btn btn-link btn-round" ng-click="toggleVisible(c)" ng-show="!c.editable  && c.Respuestas.length>0" ng-bind-html="treeClass(c)">a</button>
+
+
+
+
+                                        <button class="btn btn-link btn-round" ng-click="finalizar(c)" ng-hide="c.editable || c.Estado=='Pendiente' || c.Estado=='Finalizada'||c.Estado==1 ||user.Rol!='Docente'" "><i class="md-cancel"></i></button>
+                                        <button class="btn btn-link btn-round" ng-click="activar(c)" ng-hide="c.editable || c.Estado=='EnCurso' || c.Estado=='Finalizada' ||c.Estado==2 || c.Estado==1||user.Rol!='Docente'" "><i class="md-check"></i></button>
+                                        <button class="btn btn-link btn-round" ng-click="c.editable=false;guardar(c);" ng-hide="!c.editable ||user.Rol!='Docente'" "><i class="md-save"></i></button>
+
+
+                                        <i class="btn-round md md-timer" data-placement="top" data-title="Creado el  {{c.FechaCreacion | date:'dd-MM-yyyy HH:mm:ss'}}" bs-tooltip />
+                                        <i class="btn-round md md-person-add" data-placement="top" data-title="Creado por {{c.Usuario.Nombre}} {{c.Usuario.Apellido}}" bs-tooltip />
+
+
+                                    </div>
+                                    <div ng-show="!c.editable">{{c.Descripcion}}</div>
+                                    <input  type="text" ng-model="c.Descripcion" ng-show="c.editable" />
+                                    <ul class="list-group-item" ng-show="c.visible " ng-repeat="r in c.Respuestas">
+                                        <li class="list-group-item-text">
+
+                                            <input type="text" ng-model="r.Comentario" ng-show="r.editable" />
+                                            <div  ng-show="!r.editable">{{r.Comentario}}</div>
+                                            <div class="list-actions" >
+                                                <button class="btn btn-link btn-round" ng-click="r.editable=true;" ng-show="!r.editable && r.Usuario.Id==user.Id && (c.Estado=='EnCurso' || c.Estado==2)" ><i class="md-edit"></i></button>
+                                                <button class="btn btn-link btn-round" ng-click="r.editable=false;guardarCambios(r)" ng-show="r.editable  && r.Usuario.Id==user.Id && c.Estado=='EnCurso'" ><i class="md-save"></i></button>
+
+                                                {{r.Usuario.Nombre}} {{r.Usuario.Apellido}}
+                                             </div>
+                                            </li>
+
+                                    </ul>
+                                  </li>
+
+
+                            </ul>
+                            <pagination-controls list="evaluaciones" paged="filteredEvaluaciones" max="5" rango="3" />
+
+
+
+
+
+
+                    </div>
+                        <div class="panel-footer" ng-if="user.Rol=='Docente'">
+
+                            <button class="btn btn-primary btn-round btn-sm" type="button" ng-click="nuevaEvaluacion()"><i class="md md-add"></i></button>
+
+
+
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+        </form>
+
+
+
+</div>

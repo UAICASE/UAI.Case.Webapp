@@ -1,0 +1,66 @@
+﻿<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="$hide()">×</button>
+
+            </div>
+            <div class="modal-body">
+
+
+
+                <div class="row">
+
+
+
+                    <div class="p-h-40">
+
+                        <form class="form-floating" name="myMailForm">
+                            <fieldset>
+                                <legend>Agregar Nota</legend>
+
+
+                                <div class="form-group filled">
+                                    <label class="control-label">Nota</label>
+                                    <input type="number" name="input" ng-model="nota.Valor"
+                                           min="0" max="10" required >
+                                </div>
+
+                                <div class="form-group filled">
+                                    <label class="control-label">Observacion</label>
+                                    <input type="text" class="form-control vertical" rows="3" ng-model="nota.Observaciones"  />
+                                </div>
+                                <div class="form-group filled">
+                                    <label class="control-label">Tipo Nota</label>
+                                    <select name="mySelect" id="mySelect" class="form-control"
+                                            ng-options="tipo for tipo in tipoNota track by tipo"
+                                            ng-model="nota.TipoNota"
+                                            ></select>
+                                 </div>
+
+                                <div class="form-group filled">
+                                    <label class="control-label"></label>
+                                    <button type="button" class="btn btn-link btn-round" ng-click="$hide();addNota(i,nota);"><i class="md md-save"></i></button>
+
+                                </div>
+
+
+                            </fieldset>
+                        </form>
+                    </div>
+
+
+
+
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

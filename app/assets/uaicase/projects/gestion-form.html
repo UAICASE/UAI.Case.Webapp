@@ -1,0 +1,46 @@
+
+    <div class="aside bs-docs-aside" tabindex="-1" role="dialog">
+        <div class="close">
+            <span ng-bind-html="estado(item.Estado)" ng-disabled="!item.editing"></span>
+            <div class="btn btn-round btn-info" ng-click="$hide()"><i class="md md-close"></i></div>
+         
+
+        </div>
+        <div class="aside-dialog">
+
+            <div class="aside-body bs-sidebar">
+
+                <form class="form-floating" name="myForm" ng-submit="saveItem(item)">
+                    <fieldset>
+
+                        <legend> {{cmd}} {{settings.singular}}</legend>
+
+                        <div class="form-group filled">
+                            <label class="control-label">Nombre </label>
+                            <input type="text" class="form-control" ng-model="item.Nombre" ng-disabled="!item.editing" required>
+                        </div>
+
+                        <div class="form-group filled">
+                            <label class="control-label">Curso </label>
+                            <input type="text" class="form-control" ng-model="item.Curso" data-min-length="1" data-auto-select="true" bs-options="curso as curso.Materia.Nombre for curso in cursosActivos" ng-change="getGrupo(item.Curso.Id)" bs-typeahead ng-disabled="!item.editing" required>
+                        </div>
+
+
+
+                        <div class="form-group filled">
+                            <label class="control-label">Descripcion</label>
+                            <textarea class="form-control vertical" rows="3" ng-model="item.Descripcion" ng-disabled="!item.editing" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-lg btn-primary" ng-hide="!item.editing" ng-disabled="!myForm.$valid" ng-click="proyectoPut()">Guardar</button>
+                        </div>
+
+
+                    </fieldset>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    

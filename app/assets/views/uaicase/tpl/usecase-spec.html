@@ -1,0 +1,204 @@
+﻿<div ng-controller="useCaseController" >
+   
+    <div role="tabpanel">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist" ng-init="actionTabUC=1">
+            <li role="presentation" class="active"><a ng-click="actionTabUC=1" aria-controls="home" role="tab" data-toggle="tab">Propiedades</a></li>
+            <li role="presentation"><a ng-click="actionTabUC=2" aria-controls="home" role="tab" data-toggle="tab">Descripción</a></li>
+            <li role="presentation"><a ng-click="actionTabUC=3" aria-controls="home" role="tab" data-toggle="tab">Escenarios</a></li>
+            <li role="presentation"><a ng-click="actionTabUC=4" aria-controls="home" role="tab" data-toggle="tab">Especificación Escenario</a></li>
+
+         </ul>
+
+        <form class="form-floating" name="myForm" ng-submit="saveItem(item)">
+
+
+
+
+            <!-- Tab panes -->
+            <div class="tab-content m-t-10">
+                <div role="tabpanel" class="tab-pane" ng-class="{active: actionTabUC==1}">
+
+                    <div class="form-group filled">
+                        <label class="control-label">Nombre </label> {{useCase.attributes.attrs.text.text}}
+                        
+                    </div>
+                    <div class="form-group filled">
+                        <label class="control-label">Creador </label> {{useCase.get('owner').Nombre}} {{useCase.get('owner').Apellido}}
+
+                    </div>
+                    <div class="form-group filled">
+                        <label class="control-label">Disparador </label> 
+                        <input type="text" class="form-control" ng-model="specification.trigger" >
+                    </div>
+
+
+
+                </div>
+
+                <div role="tabpanel" class="tab-pane" ng-class="{active: actionTabUC==2}">
+
+                    <div class="form-group filled">
+                        <label class="control-label">Descripción </label>
+                        
+                        <textarea class="form-control vertical" rows="5" ng-model="specification.description"></textarea>
+                        
+                    </div>
+
+                </div>
+                <div role="tabpanel" class="tab-pane" ng-class="{active: actionTabUC==3}">
+                    <div class="panel">
+                        
+                        <div class="panel-body card">
+
+
+
+                            <table class="table table-hover table-full table-full-small">
+                                <colgroup>
+                                    <col class="auto-cell-size">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>Tipo</th>
+                                        <th>Nombre</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="ng-scope " ng-repeat="i in specification.scenarios" no-animate>
+                                        <td class="ng-binding col-sm-2" ng-cloak>
+                                            <div class="btn btn-link btn-round" ng-show="!i.editable" ng-bind-html="iconScenario(i.type)"></div>
+
+                                            <div class="form-group" ng-show="i.editable">
+                                                <ui-select ng-model="i.type" theme="select2" title="Choose a type" search-enabled="false">
+                                                    <ui-select-match class="btn btn-link btn-round" ng-bind-html="iconScenario($select.selected)"></ui-select-match>
+                                                    <ui-select-choices repeat="item in scenarioTypes">
+                                                        <!--<div ng-bind-html="i.name | highlight: $select.search"></div>-->
+                                                        <div class="btn btn-link btn-round" ng-bind-html="iconScenario(item)"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+
+
+
+
+
+
+
+                                        </td>
+                                        <td class="ng-binding col-sm-8">
+                                            <div ng-show="!i.editable">{{i.name}}</div>
+                                            <input class="col-sm-12" type="text" ng-model="i.name" ng-show="i.editable" />
+                                        </td>
+                                        <td class="ng-binding col-sm-2">
+                                            <button class="btn btn-link btn-round" ng-click="i.editable=true;" ng-hide="i.editable"><i class="md-edit"></i></button>
+                                            <button class="btn btn-link btn-round" ng-click="angular.copy(i.edited,i);i.editable=false;" ng-hide="!i.editable"><i class="md-save"></i></button>
+
+                                        </td>
+                                    </tr><!-- end ngRepeat: (key, item) in data -->    
+                                
+                                </tbody></table>
+
+
+
+                        </div>
+                        <div class="panel-footer">
+                        
+                                <button class="btn btn-primary btn-round btn-sm" type="button" ng-click="newScenario()" ><i class="md md-add"></i></button>
+                                    
+                            </div>
+             
+                        
+                        
+                        </div>
+                        
+                </div>
+
+                <div role="tabpanel" class="tab-pane" ng-class="{active: actionTabUC==4}">
+                    <div class="panel col-md-12">
+                        <div class="row p-20">
+                            <div class="col-md-2">
+                                Seleccione
+                            </div>
+                            <div class="col-md-10">
+                                
+                                <select class="col-md-12"
+                                  ng-model="selectedScenario"
+                                    ng-options="option.name for option in specification.scenarios track by option.name" ></select>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <table class="table table-hover table-full table-full-small">
+                                <colgroup>
+                                    <col class="auto-cell-size">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>Iniciador</th>
+                                        <th>Interacción</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                     
+                                    <tr class="ng-scope" ng-repeat="i in selectedScenario.steps">
+                                        <!--<td ng-bind-html="item.icon" class="f20 ng-binding"><i class="md md-insert-link pink darken-2 icon-color"></i></td>-->
+                                        <td class="ng-binding col-sm-2">
+                                            <div class="btn btn-link btn-round" ng-show="!i.editable" ng-bind-html="iconInitiator(i.initiator)"></div>
+
+                                            <div class="form-group" ng-show="i.editable">
+                                                <ui-select ng-model="i.initiator" theme="select2" title="Choose a type" search-enabled="false">
+                                         
+                                                    <ui-select-match class="btn btn-link btn-round" ng-bind-html="iconInitiator($select.selected)"></ui-select-match>
+                                                    <ui-select-choices repeat="item in triggerTypes">
+                                                        <!--<div ng-bind-html="i.name | highlight: $select.search"></div>-->
+                                                        <div class="btn btn-link btn-round" ng-bind-html="iconInitiator(item)"></div>
+                                                    </ui-select-choices>
+                                                </ui-select>
+                                            </div>
+
+
+
+
+
+
+
+                                        </td>
+                                        <td class="ng-binding col-sm-8">
+                                            <div ng-show="!i.editable">{{i.name}}</div>
+                                            <input class="col-sm-12" type="text" ng-model="i.name" ng-show="i.editable"/>
+                                        </td>
+                                        <td class="ng-binding col-sm-2">
+                                            <button class="btn btn-link btn-round" ng-click="i.editable=true;" ng-hide="i.editable"><i class="md-edit"></i></button>
+                                            <button class="btn btn-link btn-round" ng-click="angular.copy(i.edited,i);i.editable=false;" ng-hide="!i.editable"><i class="md-save"></i></button>
+                                            
+                                        </td>
+                                        </tr><!-- end ngRepeat: (key, item) in data -->
+
+                                </tbody>
+                            </table>
+               
+                            
+
+                        </div>
+
+       
+                       
+                  
+                        </div>
+                    <div class="panel-footer">
+                        <button class="btn btn-primary btn-round btn-sm" type="button" ng-click="newStep()" ng-enabled="selectedScenario"><i class="md md-add"></i></button>
+                    </div>
+            </div>
+                </div>
+        </form>
+    
+
+    <button ng-click="save()">Guardar</button>
+</div>
+</div>

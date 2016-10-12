@@ -1,0 +1,79 @@
+﻿<section>
+    <div class="page-header">
+        <div class="actions">
+            <!--<button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-info-outline"></span></button>
+            <button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-search"></span></button>-->
+            </div>
+        <h1>
+            <i class="md md-people"></i>
+            Mis Cursos
+        </h1>
+        <p class="lead">
+           Aquí podra gestionar sus cursos
+
+        </p>
+    </div>
+</section>
+<div class="container-fluid">
+
+
+    <div ng-hide="data.length>0" ng-cloak>
+        <div class="bs-component">
+            <div class="alert alert-dismissible alert-info">
+
+                <h4>Atención</h4>
+                <p>No tiene cursos asignados</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive well no-padding white no-margin"ng-hide="data.length==0" >
+        <h3 class="table-title">{{data.length}} {{settings.plural}}</h3>
+        <table class="table table-full m-b-60" id="table-area-1" fsm-big-data="data of data take 30" >
+            <thead>
+                <tr fsm-sticky-header scroll-body="'#table-area-1'" scroll-stop="64">
+                    <th><input type="checkbox" class="relative" ng-model="selectAll" ng-click="checkAll()" /></th>
+                    <!--<th>Icon</th>-->
+                    <th fsm-sort="numero">Materia</th>
+                    <th fsm-sort="creado">Año</th>
+                    <th fsm-sort="creado">Dia</th>
+                    <th fsm-sort="turno">Turno</th>
+                    <th fsm-sort="sede">Sede</th>
+                    <th fsm-sort="docente">Docente</th>
+                    <th fsm-sort="Activo">Activo</th>
+                    <th class="text-right">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(key, item) in data" ng-click="item.selected=!item.selected" ng-dblclick="editItem(item)">
+                    <td><input type="checkbox" class="relative" ng-model="item.selected" ng-click="$event.stopPropagation()" /></td>
+                    <!--<td ng-bind-html="item.icon" class="f20"></td>-->
+                    <td>{{ item.Materia.Nombre }}</td>
+                    <td>{{ item.Anio}}</td>
+                    <td>{{ item.Dia}}</td>
+                    <td>{{ item.Turno}}</td>
+                    <td>{{ item.Sede}}</td>
+                    <td>{{ item.Docente.Nombre}} {{item.Docente.Apellido}}</td>
+                    <td>{{ item.Activo}}</td>
+
+                    <td class="text-right" ng-click="$event.stopPropagation()">
+
+
+                        <button type="button" class="btn btn-link btn-round" data-animation="am-fade-and-slide-top" ng-hide="!item.Mio" ng-click=loadAlumnos(item) data-template="assets/views/uaicase/tpl/alumnos_modal.html" bs-modal><i class="md md-group-add" ></i></button>
+
+                        <button type="button" class="btn btn-link btn-round" data-title="Alumnos" ng-click="showFormAddAlumnos(item)" ng-show="user.rol=='Docente' && item.Mio"><i class="md md-group"> </i></button>
+                        <button type="button" class="btn btn-link btn-round" data-title="Request" ng-click="solicitarAccesoCurso(item)" ng-show="item.TipoVisibilidad=='Publico'  && !item.Mio && item.Activo && user.rol=='Alumno'"><i class="md md-publish"> </i></button>
+                        <i class="md-close  btn-round" ng-show="item.TipoVisibilidad=='Privado'"></i>
+                        <i class="md-public btn-round" ng-show="item.TipoVisibilidad=='Publico'"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer-buttons" ng-controller="GestionAlumnosController">
+
+        <div class="btn btn-primary btn-round btn-lg" ng-show="user.Rol=='Docente'" ng-click="showRegistrationRequestForm()" data-title="Solicitar Registro" bs-tooltip><i class="md md-group-add"></i></div>
+
+    </div>
+</div>

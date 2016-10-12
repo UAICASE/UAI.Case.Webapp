@@ -1,0 +1,69 @@
+﻿<section>
+    <div class="page-header">
+        <div class="actions">
+            <!--<button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-info-outline"></span></button>
+            <button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-search"></span></button>-->
+        </div>
+        <h1>
+            <i class="md md-work"></i>
+           Gestión de Proyectos CASE
+        </h1>
+        <p class="lead">
+            Aquí encontrara todos sus proyectos en los que trabajo o está trabajando
+            <!--<u>UAI CASE</u>.-->
+        </p>
+    </div>
+</section>
+<div>
+
+
+
+    <div role="tabpanel">
+        <ul class="nav nav-tabs" role="tablist" ng-init="mainActionTab=1">
+            <li role="presentation" class="active"><a ng-click="mainActionTab=1" aria-controls="home" role="tab" data-toggle="tab">Mis Proyectos</a></li>
+            <li role="presentation"><a ng-click="mainActionTab=2" aria-controls="home" role="tab" data-toggle="tab">Colaborando</a></li>
+
+
+        </ul>
+        <div class="tab-content m-t-10">
+            <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==1}">
+
+
+                <div class="col-lg-12">
+                
+                    <gestion-proyectos  rol="{{user.rol}}" target="{{user.rol}}" />
+
+                </div>
+
+
+
+            </div>
+
+
+
+
+            <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==2}">
+
+                <div class="col-lg-12">
+
+                    <!-- <gestion-proyectos  rol="{{user.Rol}}" target="Compartidos" /> -->
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+    <div class="footer-buttons">
+        <!--<div class="btn btn-primary btn-round btn-lg m-r-10 btn-footer" ng-show="(data|filter:{selected: true}).length" ng-click="remove()" data-title="Remove {{(data|filter:{selected: true}).length}} item(s)" bs-tooltip><i class="md md-delete"></i></div>
+        <div class="btn btn-default btn-round btn-lg m-r-10 btn-footer" scroll-to="top" ng-hide="scroll<100" data-title="Scroll to top" bs-tooltip><i class="md md-arrow-drop-up"></i></div>
+        <div class="btn btn-primary btn-round btn-lg" ng-click="createItem()" data-title="Nuevo {{settings.singular}}" bs-tooltip><i class="md md-add"></i></div>-->
+    </div>
+</div>

@@ -1,0 +1,55 @@
+﻿<div ng-cloak ng-init="loadData()">
+
+
+    <div class="table-responsive well no-padding white no-margin" ng-show="data!= undefined && data.length>0">
+        <h3 class="table-title">{{data.length}} {{settings.plural}}</h3>
+        <table class="table table-full m-b-60" id="table-area-1" fsm-big-data="data of data take 30">
+            <thead>
+                <tr  scroll-body="'#table-area-1'" scroll-stop="64">
+                    <th><input type="checkbox" class="relative" ng-model="selectAll" ng-click="checkAll()" /></th>
+                    <!--<th>Icon</th>-->
+                    <th >Numero</th>
+                    <th  ng-hide="rol==target">Autor</th>
+
+                    <th >Creado</th>
+                    <th >Nombre</th>
+                    <th >Curso</th>
+                    <th>Descripcion</th>
+                    <th >Estado</th>
+                    <th class="text-right">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="(key, item) in data" ng-click="item.selected=!item.selected" ng-dblclick="editItem(item)">
+
+                    <td><input type="checkbox" class="relative" ng-model="item.selected" ng-click="$event.stopPropagation()" /></td>
+                    <!--<td ng-bind-html="item.icon" class="f20"></td>-->
+                    <td>
+
+                    {{ item.Numero }}</td>
+                    <td ng-hide="rol==target">{{ item.Usuario.Apellido }} {{item.Usuario.Nombre   }}</td>
+
+                      <td am-time-ago="item.FechaCreacion"></td>
+                    <td>{{ item.Nombre }}</td>
+                    <td>{{ item.Curso.Materia.Nombre}}</td>
+                    <td>{{ item.Descripcion }}</td>
+                    <td ng-bind-html="estado(item.Estado)" class="f20"></td>
+                    <td class="text-right" ng-click="$event.stopPropagation()">
+
+                        <button type="button" class="btn btn-link btn-round" data-title="Edit" ng-hide="item.Usuario.Id!=user.Id" ng-click="editItem(item)"><i class="md md-edit"></i></button>
+
+                        <button type="button" class="btn btn-link btn-round" data-title="Borrar" ng-hide="item.Usuario.Id!=user.Id" ng-click="remove(item)"><i class="md md-delete"></i></button>
+                        <button type="button" class="btn btn-link btn-round" data-title="Seleccionar"  ng-click="selectProyecto(item)"><i class="md md-work"></i></button>
+                        <button type="button" class="btn btn-link btn-round" data-animation="am-fade-and-slide-top"  ng-click=shareProyecto(item) ng-hide="item.Usuario.Id!=user.Id" data-template="assets/views/uaicase/tpl/share_proyecto_modal.html" bs-modal><i class="md md-share"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="footer-buttons"  ng-hide="rol!=target">
+        <!--<div class="btn btn-primary btn-round btn-lg m-r-10 btn-footer" ng-show="(data|filter:{selected: true}).length && item.Usuario.Id==user.Id" ng-click="remove()" data-title="Remove {{(data|filter:{selected: true}).length}} item(s)" bs-tooltip><i class="md md-delete"></i></div>-->
+
+        <div ng-if="target!='compartidos'" class="btn btn-primary btn-round btn-lg" ng-click="createItem()" data-title="Nuevo {{settings.singular}}" bs-tooltip><i class="md md-add"></i></div>
+    </div>
+</div>

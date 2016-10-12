@@ -1,0 +1,33 @@
+este archvi debe ir en rappid/dist pero lo dejo aca para evitar perderlo ante un eventual reemplazo de versión
+
+10-05-16
+- metodo onConnection() del channel. Ahi busca los datos del modelo y crea la conexion con el router ocn los datos como parametro.
+deprectated
+
+
+-02-06-16
+en joint.com.Channel.prototype.sendNotification  va esto
+
+    if (message.data.event == "save")     {
+
+        var data  = message.data.data;
+
+        
+        //\wwwroot\app\jointjs\rappid\node_modules\node-persist\src\storage
+        var storage = require('../node_modules/node-persist');
+        storage.init({ dir: '/uaicase/' });
+
+        try {
+            storage.setItemSync(data.id, data.model)
+            console.log("save model", data.id);
+        } catch (e) {
+            console.log("error saving model", data.id);
+        }
+        
+        
+    }
+
+
+	03-06-16
+
+	reemplazar el contenido del fix recibido del plugin com.channel dentro de rappid/dist/rappid.js para evitar los eventos infiitos

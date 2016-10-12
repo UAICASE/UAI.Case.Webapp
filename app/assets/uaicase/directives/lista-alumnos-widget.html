@@ -1,0 +1,60 @@
+﻿<div>
+
+
+
+
+    <div ng-hide="alumnos.length>0" ng-cloak>
+
+        <div class="bs-component">
+            <div class="alert alert-dismissible alert-info">
+
+                <p>{{sinDatos}}</p>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card bordered" ng-hide="alumnos.length==0" ng-cloak>
+        <div class="card-header">
+            <span class="card-title">{{titulo}}</span>
+        </div>
+
+
+        <div class="table-responsive">
+            <table class="table table-full table-full-small">
+                <thead>
+                    <tr>
+
+                        <th>Legajo</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+
+                        <th class="text-right">Acciones</th>
+                    </tr>
+                </thead>
+              <!--room {{rooms}}-->
+                <tbody>
+
+                    <tr ng-repeat="i in alumnos">
+
+
+                        <td class="col-md-1">{{i.Legajo}}</td>
+                        <td class="col-md-5">{{i.Nombre}}</td>
+                        <td class="col-md-5">{{i.Apellido}}</td>
+                        <td class="text-right col-md-1">
+
+
+                            <i class="btn btn-link md md-remove-red-eye" ng-show="i.Id!=user && rooms.indexOf(i.Id)>=0 && observadores" ></i>
+                            <send-mail-widget para="i" curso="curso" ></send-mail-widget>
+                            <estado-usuario usuario="{{i.Id}}"></estado-usuario>
+
+                         </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,189 @@
+    <section>
+        <div class="page-header">
+            <div class="actions">
+                <!--<button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-info-outline"></span></button>
+                <button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-search"></span></button>-->
+            </div>
+            <h1>
+                <i class="md md-people"></i>
+                Curso
+            </h1>
+            <p class="lead">
+                Aquí encontrara toda la información sobre el curso
+
+            </p>
+        </div>
+    </section>
+
+<div>
+    <h3 class="table-title">
+
+
+        <strong>Docente</strong> {{curso.Docente.Nombre}}, {{curso.Docente.Apellido}}
+        <send-mail-widget para="curso.Docente" curso="curso" ></send-mail-widget>
+        <estado-usuario usuario="{{curso.Docente.Id}}"></estado-usuario>
+
+
+    </h3>
+
+    <div class="dashboard" >
+
+        <div class="row no-gutter">
+
+            <div class="col-md-10">
+
+                <div role="tabpanel">
+                    <ul class="nav nav-tabs" role="tablist" ng-init="mainActionTab=1">
+                        <li role="presentation" class="active"><a ng-click="$emit('chat:toggle',false);mainActionTab=1" aria-controls="home" role="tab" data-toggle="tab">Principal</a></li>
+                        <li role="presentation"><a ng-click="$emit('chat:toggle',true);mainActionTab=2" aria-controls="home" role="tab" data-toggle="tab">Salón de Chat ({{(chats |filter: {isNew:true}).length}})</a></li>
+                        <li role="presentation"><a ng-click="$emit('chat:toggle',false);mainActionTab=3" aria-controls="home" role="tab" data-toggle="tab">Planificación</a></li>
+                        <li role="presentation"><a ng-click="$emit('chat:toggle',false);mainActionTab=4" aria-controls="home" role="tab" data-toggle="tab" ng-show="curso.Docente.Id==user.Id">Evaluación</a></li>
+                        <li role="presentation" ng-show="user.Rol=='Docente'"> <a ng-click="$emit('chat:toggle',false);mainActionTab=5" aria-controls="home" role="tab" data-toggle="tab">Proyectos CASE</a></li>
+
+
+                    </ul>
+                    <div class="tab-content m-t-10">
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==1}">
+
+
+                                <div class="col-lg-10 col-lg-offset-1">
+
+                                    <lista-alumnos titulo="Alumnos del Curso" alumnos="alumnos" sinDatos="No hay alumnos en el curso!" curso="curso" />
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==2}">
+
+                            <div class="col-lg-10 col-lg-offset-1">
+
+                                <ver-chat canal="{{cursoId}}" titulo="Chat del Curso"  />
+
+
+                            </div>
+                        </div>
+
+
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==3}">
+
+
+                            <div class="col-md-10  col-md-offset-1" ng-if="curso">
+                                <planificar-contenido-curso curso="curso"/>
+                            </div>
+
+
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==4}" ng-show="curso.Docente.Id==user.Id">
+
+                            <div class="col-md-12" ng-if="alumnosCurso">
+                                <administrar-notas-curso alumnos="alumnosCurso" />
+                            </div>
+
+
+
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: mainActionTab==5}" ng-show="user.Rol=='Docente'">
+
+                            <div class="p-10">
+                                <section>
+                                    <div class="page-header">
+                                        <div class="actions">
+                                            <!--<button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-info-outline"></span></button>
+                        <button type="button" class="btn btn-link btn-round-sm theme-secondary-text"><span class="md md-search"></span></button>-->
+                                        </div>
+                                        <h1>
+                                            <i class="md md-work"></i>
+                                            Gestión de Proyectos CASE del Curso
+                                        </h1>
+                                        <p class="lead">
+                                            Aquí encontrara todos sus proyectos compartidos para el curso
+                                            <!--<u>UAI CASE</u>.-->
+                                        </p>
+                                    </div>
+                                </section>
+
+
+
+                                <gestion-proyectos  room="{{cursoId}}" rol="Docente" target="Curso" />
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <div role="tabpanel">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist" ng-init="actionTab=1">
+                        <li role="presentation" class="active"><a ng-click="actionTab=1" aria-controls="home" role="tab" data-toggle="tab">Logs</a></li>
+                        <li role="presentation"><a ng-click="actionTab=2" aria-controls="home" role="tab" data-toggle="tab">Solicitudes</a></li>
+                    </ul>
+                    <!-- Tab panes -->
+                    <div class="tab-content m-t-10">
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==1}">
+
+
+                            <ver-logs canal="{{cursoId}}" />
+
+
+                        </div>
+                        <div role="tabpanel" class="tab-pane" ng-class="{active: actionTab==2}">
+                            <ul class="timeline">
+
+                                <li ng-repeat="req in (requests | filter: {Estado:'Pendiente'} )  track by $index">
+                                    <!--<div class="timeline-badge">
+              <i class="icon-circle theme-border"></i>
+            </div>-->
+
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">{{req.Alumno.Nombre}} {{req.Alumno.Apellido}} se desea unir al curso...</h4>
+
+
+                                            <button type="button" class="btn btn-link btn-round" data-title="Alumnos" ng-click="acceptJoinRequest(req)" ng-show="user.rol=='Docente'"><i class="md md-check"> </i></button>
+                                            <button type="button" class="btn btn-link btn-round" data-title="Alumnos" ng-click="denyJoinRequest(req)" ng-show="user.rol=='Docente'"><i class="md md-cancel"> </i></button>
+
+                                        </div>
+                                        <div class="timeline-body">
+                                            <small class="text-muted"><i class="md md-timer"></i> {{req.FechaCreacion}}</small>
+
+                                        </div>
+                                    </div>
+                                </li>
+
+
+                            </ul>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    </div>

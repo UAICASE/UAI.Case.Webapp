@@ -1,0 +1,13 @@
+<div ng-controller="MailController">
+﻿<ul class="popover dropdown-menu dropdown-menu-right" role="menu">
+    <li class="arrow"></li>
+    <li><h3 class="popover-title" ng-hide="(getInbox() | filter:{ReadDate:'null'}).length<=1">Tiene {{(getInbox() | filter:{ReadDate:'null'}).length}} mensajes nuevos!</h3></li>
+    <li><h3 class="popover-title" ng-hide="(getInbox() | filter:{ReadDate:'null'}).length!=1">Tiene {{(getInbox() | filter:{ReadDate:'null'}).length}} mensaje nuevo!</h3></li>
+    <li><h3 class="popover-title" ng-hide="(getInbox() | filter:{ReadDate:'null'}).length!=0">No hay mensajes nuevos</h3></li>
+    <li class="popover-content">
+
+    	<a href="#/mailer" ng-click="$hide()">Centro de mensajeria...</a>
+
+    </li>
+</ul>
+</div>

@@ -1,0 +1,90 @@
+<nav class="navbar navbar-default navbar-fixed-top" ng-class="{scroll: (scroll>10), 'full-nav' : !vm.menuIsOpen}">
+  <div class="container-fluid">
+    <div class="navbar-header pull-left">
+      <button type="button" class="navbar-toggle pull-left m-15" data-activates=".sidebar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="menu-icon" ng-click="vm.menuToggle()"><i class="fa fa-bars" aria-hidden="true"></i></span>
+      <ul class="breadcrumb">
+        <li><a href="#/">UAI Case</a></li>
+        <li ng-bind="pageTitle" class="active">Cargando...</li>
+      </ul>
+    </div>
+
+    <ul class="nav navbar-nav navbar-right navbar-right-no-collapse">
+
+
+
+            <li class="pull-right" ng-controller="ListMailController">
+              <span ng-if="inboxNew().length>0" id="newMessagesCount"
+              class="pull-right badge z-depth-0 red">{{inboxNew().length}}</span>
+
+                <div class="btn-group">
+
+                  <button type="button"
+                            title="{{inboxNew().length}} Mensajes"
+                            data-placement="bottom"
+                            class="dropdown-toggle pointer btn btn-round-sm btn-link ng-scope"
+                            data-toggle="dropdown">
+
+                      <i class="md md-email btn btn-round-sm btn-link" >
+
+
+                       </i>
+
+                    </button>
+                  <div class="ripple-wrapper"></div>
+                  <ul class="popover dropdown-menu dropdown-menu-right" style="top:80px" role="menu" >
+                    <li class="arrow"></li>
+                                        <li><h3 class="popover-title" ng-if="inboxNew().length>1">Tiene {{inboxNew().length}} mensajes nuevos!</h3></li>
+                    <li><h3 class="popover-title" ng-if="inboxNew().length==1">Tiene {{inboxNew().length}} mensaje nuevo!</h3></li>
+                    <li><h3 class="popover-title" ng-if="inboxNew().length==0">No hay mensajes nuevos</h3></li>
+                    <li class="popover-content">
+
+                      <a href="#/mailer" ng-click="$hide()">Centro de mensajeria...</a>
+
+                    </li>
+                  </ul>
+                </div>
+            </li>
+
+             <li class="pull-right profile-icon">
+              <a href="#/perfil"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></a>
+            </li>
+    </div>
+             <!--    <button type="button"
+                        title="{{(getInbox() | filter:{ReadDate:'null'}).length}} Mensajes"
+                        data-placement="bottom"
+                        class="dropdown-toggle pointer btn btn-round-sm btn-link ng-scope"
+                        data-toggle="dropdown"
+                        data-template="/app/assets/tpl/partials/new-mail-partial.html"
+                        data-animation="mat-grow-top-right" bs-popover>
+
+                      <i class="md md-email btn btn-round-sm btn-link">  </i>
+
+                </button> -->
+
+                    <span id="newMailCount" class="badge z-depth-0 red" ng-hide="(getInbox() | filter:{ReadDate:'null'}).length==0" name="Mis Mensajes">{{(getInbox() | filter:{ReadDate:'null'}).length}}</span>
+
+
+
+
+            </li>
+
+
+            <!--<li class="dropdown pull-right">
+                <a href="#/dashboard" class="m-r-5" ><i class="md md-email"><span id="newMailCount" class="smallbadge z-depth-0 red" ng-bind="newMailCount" name="Mis Mensajes"></span></i> </a>
+                <button class="dropdown-toggle pointer btn btn-round-sm btn-link withoutripple" bs-dropdown
+                    data-template="assets/tpl/partials/theme-picker.html"
+                    analytics-on="click" analytics-category="Themepicker" analytics-event="Open">
+              <i class="md md-settings f20"></i>
+            </button>
+            </li>-->
+
+            <!--<li navbar-search class="pull-right"></li>-->
+</ul>
+  </div>
+</nav>

@@ -1,0 +1,47 @@
+﻿<div class="card bordered">
+
+
+    
+    <table class="table table-bordered  table-full-small" ng-show="alumnos.length">
+        <thead>
+            <tr>
+
+                <th></th>
+                <th>Alumno</th>
+
+                <th>Notas</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="i in alumnos">
+
+
+                
+                <td class="col-md-1 ">
+                    
+                    
+                    <estado-usuario usuario="{{i.Alumno.Id}}" />
+
+
+                </td>
+                <td class="text-left">{{i.Alumno.Legajo}} {{i.Alumno.Nombre}} {{i.Alumno.Apellido}}</td>
+
+                <td class="text-left col-md-8">
+                    <button type="button" class="btn btn-link btn-round" ng-click="nota={}" data-animation="am-fade-and-slide-top" data-template="assets/tpl/partials/notas-modal.html" bs-modal><i class="md md-add-box"></i></button>
+                    <span ng-repeat="n in i.Notas">
+
+                        <span ng-click="nota=n" data-template="assets/tpl/partials/notas-modal.html" bs-modal>
+                            <button type="button" class="btn btn-link btn-round" data-animation="am-fade-and-slide-top" data-title="{{n.TipoNota}}" bs-tooltip>{{n.Valor}}</button>
+                        </span>
+
+
+                    </span>
+                </td>
+            </tr>
+
+
+
+        </tbody>
+    </table>
+</div>

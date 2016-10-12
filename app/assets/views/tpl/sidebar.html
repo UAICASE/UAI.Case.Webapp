@@ -1,0 +1,120 @@
+<!-- <aside class="sidebar fixed" ng-class="{'menu-toggle-left': menuIsToglle}"> -->
+<aside class="sidebar fixed" ng-class="{'menu-hide': !vm.menuIsOpen}">
+    <div id="logo-uai-main">
+        <a href="/"><img ng-class="{'menu-image' : !vm.menuIsOpen}" height="100" src="/assets/img/logo uaicase 2 150 x 150.png" /></a>
+    </div>
+
+    <div class="user-logged-in" ng-show="vm.menuIsOpen">
+      <div class="content" >
+
+        <div class="user-name">
+            {{user.name}} {{user.surname}}
+
+            <span class="text-muted f9">{{user.rol}}</span>
+        </div>
+        <div class="user-email">{{user.email}}</div>
+        <div class="user-actions">
+          <a class="m-r-5" href="#/perfil">perfil</a>
+          <a class="m-r-5" href="#/" ng-click="vm.logout()">salir</a>
+        </div>
+
+       </div>
+    </div>
+
+    <ul class="menu-links menu-links-effect" ng-class="{'menu-effect' : !vm.menuIsOpen}" ng-hide="vm.menuIsOpen"  ng-cloak>
+
+        <a menu-link href="#/dashboard" class="pull-right" >
+            <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+        </a>
+
+        <a menu-link href="#/calendario" class="pull-right" >
+            <span class="glyphicon glyphicon-calendar" aria-hidden="true"></span>
+        </a>
+
+        <a menu-link href="#/cursos-activos" class="pull-right" >
+            <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+        </a>
+
+        <a menu-link href="#/proyectos/gestion-proyectos" class="pull-right" >
+            <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>
+        </a>
+
+        <a ng-hide="selectedProyect==undefined" menu-link href="#/proyectos/gestion-proyectos" class="pull-right" ng-click="showExplorer()" >
+            <span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+        </a>
+
+
+    </ul>
+
+    <ul class="menu-links menu-effect" ng-class="{'menu-links-effect' : !vm.menuIsOpen}" ng-show="vm.menuIsOpen" ng-cloak>
+
+        <a menu-link href="#/dashboard" icon="md md-blur-on">Dashboard</a>
+
+        <a menu-link href="#/calendario" icon="md md-event">Calendario</a>
+
+        <li menu-toggle path="/Academico" name="Academico" icon="md md-school" ng-hide="user.rol=='Admin'">
+
+            <a menu-link href="#/materias" name="Mis Materias" ng-show="user.rol=='Docente'">
+                Todas Mis Materias
+            </a>
+            <a menu-link href="#/cursos" name="Todos los Cursos">
+              <!--ng-bind="misCursosCount"-->
+                Todos Los Cursos
+            </a>
+            <a menu-link href="#/cursos-activos" name="Mis Cursos Activos">
+              <!--  <span ng-hide="misCursosActivosCount==0" id="misCursosActivosCount" class="pull-right badge z-depth-0 red" name="Mis Cursos Activos"></span>-->
+              Mis Cursos Activos
+            </a>
+
+            <a menu-link href="#/grupos" name="Mis Grupos Activos" ng-show="user.rol=='Alumno'">
+               Mis Grupos Activos
+            </a>
+        </li>
+
+
+        <li menu-toggle path="/administracion" name="Administracion" icon="md md-settings" ng-hide="vm.user.rol!='Admin'">
+            <a menu-link href="#/academico/gestion-materias" name="Gestion de materias">
+                <span id="materias" class="pull-right badge z-depth-0"></span>
+                Gestion de Materias
+            </a>
+            <a menu-link href="#/academico/gestion-docentes" name="Gestion de docentes">
+                <span id="docentes" class="pull-right badge z-depth-0"></span>
+                Gestion de Docentes
+            </a>
+            <a menu-link href="#/academico/gestion-alumnos" name="Gestion de alumnos">
+                <span id="alumnos" class="pull-right badge z-depth-0"></span>
+                Gestion de Alumnos
+            </a>
+            <a menu-link href="#/academico/gestion-cursos" name="Gestion de cursos">
+                <span id="alumnos" class="pull-right badge z-depth-0"></span>
+                Gestion de Cursos
+            </a>
+        </li>
+
+
+
+        <li menu-toggle path="/proyectos" name="Proyectos CASE" icon="md md-work" ng-hide="vm.user.rol=='Admin'">
+
+            <a menu-link href="#/proyectos" name="Mis Proyectos CASE" > <!--ng-show="user.Rol=='Alumno'">-->
+                <!-- <span ng-hide="proyectsCount==0" id="proyectsCount" class="pull-right badge z-depth-0 red" ng-bind="proyectsCount" ></span>
+                Mis Proyectos -->
+                Mis Proyectos
+            </a>
+            <!-- <a menu-link href="#/proyectos/todo" name="Todo">
+                <span ng-hide="todosCount==0" id="todosCount" class="pull-right badge z-depth-0 red" ng-bind="todosCount"></span>
+                Todo
+            </a> -->
+
+        </li>
+
+        <li menu-toggle path="#/proyectos/gestion-proyectos" name="Proyecto Seleccionado" icon="md md-work" ng-hide="selectedProyect==undefined">
+
+            <a ng-click="showExplorer()">Explorador</a>
+            <a menu-link href="#/"  ng-click="deselectProyecto()" name="Dashboard">Cerrar</a>
+
+        </li>
+
+    </ul>
+
+
+</aside>

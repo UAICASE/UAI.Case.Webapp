@@ -1,0 +1,96 @@
+﻿<div class="aside bs-docs-aside" tabindex="-1" role="dialog">
+    <div class="close">
+
+        <div class="btn btn-round btn-info" ng-click="$hide()"><i class="md md-close"></i></div>
+
+    </div>
+    <div class="aside-dialog">
+
+        <div class="aside-body bs-sidebar">
+            <form class="form-floating" name="myForm" ng-submit="saveItem(item)">
+                <fieldset>
+                    <legend> {{cmd}} {{settings.singular}}</legend>
+
+                    <div class="form-group filled ">
+                        <label class="control-label">Visibilidad</label>
+                        <select  ng-model="item.TipoVisibilidad"
+                                ng-options="visibilidad for visibilidad in visibilidades">
+
+                        </select>
+
+
+
+                    </div>
+
+                    
+                    <div class="form-group filled">
+                        <label class="control-label">Año </label>
+                        <input type="text" class="form-control" ng-model="item.Anio" ng-disabled="!item.editing" required>
+                        </div>
+                    
+                    <div class="form-group filled">
+                        <label class="control-label">Días </label>
+                        <input type="text" class="form-control" ng-model="item.Dia" data-min-length="1" data-auto-select="true" bs-options="dia for dia in dias" bs-typeahead ng-disabled="!item.editing" required>
+                    </div>
+                    <div class="form-group filled">
+                        <label class="control-label">Turno </label>
+                        <input type="text" class="form-control" ng-model="item.Turno" data-min-length="1" data-auto-select="true" bs-options="turno for turno in turnos" bs-typeahead ng-disabled="!item.editing" required>
+                    </div>  
+                    <div class="form-group filled">
+                        <label class="control-label">Localizacion </label>
+                        <input type="text" class="form-control" ng-model="item.Sede" data-min-length="1" data-auto-select="true" bs-options="sede for sede in sedes" bs-typeahead ng-disabled="!item.editing" required>
+                    </div>  
+
+                    <div class="form-group filled">
+                        <label class="control-label">Comision  </label>
+                        <input type="text" class="form-control" ng-model="item.Comision" data-min-length="1" data-auto-select="true" bs-options="comision for comision in comisiones" bs-typeahead ng-disabled="!item.editing" required>
+                    
+                    </div>
+
+                    <div class="form-group filled ">
+                        <label class="control-label">Docente</label>
+                        <!--<input type="text" class="form-control ng-valid ng-dirty ng-valid-parse ng-touched" ng-model="item.Titular" bs-options="docente as docente.Nombre for docente in getDocentes($viewValue)" bs-typeahead>-->
+                        <input type="text" class="form-control" ng-model="item.Docente" data-min-length="1" data-auto-select="true" bs-options="docente as docente.Nombre for docente in docentes" bs-typeahead ng-disabled="!item.editing" required>
+
+                        <!--<select id="mySel" class="form-control">
+                            <option ng-repeat="i in docentes" ng-selected="item.TitularSelected" ng-model="item.Titular">{{i.Nombre}} {{i.Apellido}}</option>
+                        </select>-->
+
+
+
+                    </div>
+
+                    <div class="form-group filled ">
+                        <label class="control-label">Materia</label>
+                        <!--<input type="text" class="form-control ng-valid ng-dirty ng-valid-parse ng-touched" ng-model="item.Titular" bs-options="docente as docente.Nombre for docente in getDocentes($viewValue)" bs-typeahead>-->
+                        <input type="text" class="form-control" ng-model="item.Materia" data-min-length="1" data-auto-select="true" bs-options="materia as materia.Nombre for materia in materias" bs-typeahead ng-disabled="!item.editing" required>
+
+           
+
+
+                    </div>
+
+                    
+
+                    <div class="form-group filled">
+                        <label class="control-label">Descripcion</label>
+                        <textarea class="form-control vertical" rows="3" ng-model="item.Descripcion" ng-disabled="!item.editing"></textarea>
+                    </div>
+
+                    <div class="switch">
+                        <label class="filled">
+                            Off
+                            <input type="checkbox" checked="checked" ng-model="item.Activo">
+                            <span class="lever"></span>
+                            On
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="button" class="btn btn-lg btn-primary" ng-disabled="!myForm.$valid" ng-hide="!item.editing" ng-click="cursoPut()">Guardar</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>
