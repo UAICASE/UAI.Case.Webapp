@@ -9,8 +9,8 @@ var app = express();
 // for more info, see: https://www.npmjs.com/package/cfenv
 var cfenv = require('cfenv');
 var appEnv = cfenv.getAppEnv();
-var port = appEnv.PORT || 3000 ;
-
+var port = appEnv.port || 3000 ;
+console.log("server starting on " + appEnv.url);
 // Public path configuration
 app.use(express.static(__dirname + '/app'));
 // parse application/x-www-form-urlencoded
