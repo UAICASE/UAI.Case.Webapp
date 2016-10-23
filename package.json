@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "express": "~4.5.1",
-	"cfenv": "1.0.x",
+	"cfenv": "1.0.x"
   },
   "devDependencies": {
 	"grunt": "~0.4.5",
