@@ -1,5 +1,5 @@
 var ﻿app = angular.module('uaicase.signalr',[]);
-﻿app.value('backendServerUrl', 'http://localhost:5000');
+﻿app.value('backendServerUrl', 'http://192.168.0.105:5000');
 app.factory('connectedUsers',  function () {
 
     var conectados = [];
