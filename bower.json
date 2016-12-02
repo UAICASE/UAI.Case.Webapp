@@ -66,5 +66,8 @@
     "signalr": "2.2.0",
     "ngstorage": "ng-storage#^0.4.2",
     "angular-xeditable": "^0.4.0"
+  },
+  "resolutions": {
+    "angular": "1.5.8"
   }
 }
